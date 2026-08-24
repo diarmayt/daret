@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="description" content="DÄRET by SAUAPKER — портативный сенсорный диспенсер на 420 мл для полного омовения в дороге, в офисе, в машине. Обе руки свободны, USB-C, IPX5.">
+<meta property="og:title" content="DÄRET by SAUAPKER — вдвое меньше воды на каждый дәрет">
+<meta property="og:description" content="Сенсорная подача: убрали руку — вода остановилась. 420 мл на полный дәрет, обе руки свободны.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/daret-banner.webp">
+<meta property="og:locale" content="ru_RU">
+<link rel="stylesheet" href="_ds/tunyq-d-ret-design-system-eb5957d6-c2aa-43d6-88ed-2da3fd400438/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/tunyq-d-ret-design-system-eb5957d6-c2aa-43d6-88ed-2da3fd400438/tokens/colors.css">
+<link rel="stylesheet" href="_ds/tunyq-d-ret-design-system-eb5957d6-c2aa-43d6-88ed-2da3fd400438/tokens/typography.css">
+<link rel="stylesheet" href="_ds/tunyq-d-ret-design-system-eb5957d6-c2aa-43d6-88ed-2da3fd400438/tokens/shape.css">
+<link rel="stylesheet" href="_ds/tunyq-d-ret-design-system-eb5957d6-c2aa-43d6-88ed-2da3fd400438/styles.css">
+<script src="_ds/tunyq-d-ret-design-system-eb5957d6-c2aa-43d6-88ed-2da3fd400438/_ds_bundle.js"></script>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#FFFFFF;color:var(--ink);font-family:var(--font-body);font-size:1.0625rem;line-height:1.7}
+img,svg{max-width:100%}
+h1,h2,h3{margin:0}
+a{color:var(--petrol);text-decoration:none}
+a:hover{color:#0E4B47}
+section[id]{scroll-margin-top:96px}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--petrol);outline-offset:3px}
+@keyframes daret-nudge{0%,100%{transform:translateY(0);opacity:.75}50%{transform:translateY(7px);opacity:1}}
+@media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}
+
+/* --- Hero: фоновое видео --- */
+/* Фон секции — в классе, а не инлайном: иначе он перебивает постер из prefers-reduced-motion. */
+.daret-hero{background-color:var(--mist)}
+.daret-hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;border:0;background:var(--mist)}
+/* Светлый оверлей между видео и контентом: заголовок петрольный, поэтому осветляем, а не затемняем. */
+.daret-hero-scrim{position:absolute;inset:0;pointer-events:none;background:linear-gradient(to right,rgba(255,255,255,0.95) 0%,rgba(255,255,255,0.80) 45%,rgba(255,255,255,0.15) 100%)}
+
+/* Мобильные: текст идёт во всю ширину, поэтому оверлей сплошной сверху вниз. */
+@media (max-width: 768px){
+  .daret-hero-scrim{background:linear-gradient(to bottom,rgba(255,255,255,0.92) 0%,rgba(255,255,255,0.88) 55%,rgba(255,255,255,0.80) 100%)}
+}
+
+/* Отключённая анимация: видео убираем совсем, вместо него постер на самой секции. */
+@media (prefers-reduced-motion: reduce){
+  .daret-hero-video{display:none}
+  .daret-hero{background-image:url("assets/daret-water-loop-poster.webp");background-size:cover;background-position:center;background-repeat:no-repeat}
+}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Product","name":"DÄRET","brand":{"@type":"Brand","name":"SAUAPKER"},"description":"Портативный сенсорный диспенсер воды на 420 мл для полного омовения в дороге, в офисе, в машине.","image":"assets/daret-white-hero.webp","color":["Pure White","Wheat Straw"],"weight":{"@type":"QuantitativeValue","value":293,"unitCode":"GRM"},"additionalProperty":[{"@type":"PropertyValue","name":"Объём резервуара","value":"420 мл"},{"@type":"PropertyValue","name":"Влагозащита","value":"IPX5"},{"@type":"PropertyValue","name":"Питание","value":"DC-5V, USB-C"}]}
+</script>
+</helmet>
+
+<div style="background:#FFFFFF">
+
+<header style="position:sticky;top:0;z-index:60;background:rgba(255,255,255,0.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--silver)">
+  <div style="max-width:1200px;margin:0 auto;padding:0 24px;height:76px;display:flex;align-items:center;gap:28px">
+    <a href="#top" style="display:flex;align-items:center;gap:11px;flex:0 0 auto" aria-label="DÄRET by SAUAPKER — на главную">
+      <img src="assets/daret-logo-mark.svg" alt="" width="24" height="38" style="height:36px;width:auto;display:block">
+      <img src="assets/daret-wordmark.svg" alt="DÄRET by SAUAPKER" width="79" height="15" style="height:14px;width:auto;display:block">
+    </a>
+    <sc-if value="{{ desktop }}" hint-placeholder-val="{{ true }}">
+      <nav aria-label="Основная навигация" style="margin-left:auto;display:flex;align-items:center;gap:30px">
+        <a href="#solution" style="font-family:var(--font-body);font-size:15px;color:var(--ink);transition:color 200ms" style-hover="color:var(--petrol)">Зачем</a>
+        <a href="#how" style="font-family:var(--font-body);font-size:15px;color:var(--ink);transition:color 200ms" style-hover="color:var(--petrol)">Как работает</a>
+        <a href="#colors" style="font-family:var(--font-body);font-size:15px;color:var(--ink);transition:color 200ms" style-hover="color:var(--petrol)">Цвета</a>
+        <a href="#specs" style="font-family:var(--font-body);font-size:15px;color:var(--ink);transition:color 200ms" style-hover="color:var(--petrol)">Характеристики</a>
+        <a href="#faq" style="font-family:var(--font-body);font-size:15px;color:var(--ink);transition:color 200ms" style-hover="color:var(--petrol)">Вопросы</a>
+      </nav>
+      <div role="group" aria-label="Язык интерфейса" style="display:flex;align-items:center;gap:2px;padding:3px;border:1px solid var(--silver);border-radius:999px">
+        <button type="button" onClick="{{ setRu }}" aria-pressed="{{ isRu }}" style="border:0;cursor:pointer;font-family:var(--font-display);font-size:11px;letter-spacing:0.1em;font-weight:600;padding:6px 11px;border-radius:999px;background:{{ ruBg }};color:{{ ruFg }};transition:background 200ms,color 200ms">RU</button>
+        <button type="button" onClick="{{ setKz }}" aria-pressed="{{ isKz }}" style="border:0;cursor:pointer;font-family:var(--font-display);font-size:11px;letter-spacing:0.1em;font-weight:600;padding:6px 11px;border-radius:999px;background:{{ kzBg }};color:{{ kzFg }};transition:background 200ms,color 200ms">KZ</button>
+        <button type="button" onClick="{{ setEn }}" aria-pressed="{{ isEn }}" style="border:0;cursor:pointer;font-family:var(--font-display);font-size:11px;letter-spacing:0.1em;font-weight:600;padding:6px 11px;border-radius:999px;background:{{ enBg }};color:{{ enFg }};transition:background 200ms,color 200ms">EN</button>
+      </div>
+      <a href="#order" style="flex:0 0 auto;background:var(--petrol);color:#FFFFFF;font-family:var(--font-display);font-weight:600;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;padding:13px 24px;border-radius:999px;transition:background 200ms" style-hover="background:#0E4B47;color:#FFFFFF">Заказать</a>
+    </sc-if>
+    <sc-if value="{{ mobile }}" hint-placeholder-val="{{ false }}">
+      <button type="button" onClick="{{ openMenu }}" aria-label="Открыть меню" aria-expanded="{{ menuOpen }}" aria-controls="daret-menu" style="margin-left:auto;width:46px;height:46px;display:flex;flex-direction:column;justify-content:center;gap:6px;padding:0 11px;background:transparent;border:1px solid var(--silver);border-radius:999px;cursor:pointer">
+        <span style="display:block;height:1px;background:var(--petrol)"></span>
+        <span style="display:block;height:1px;background:var(--petrol)"></span>
+      </button>
+    </sc-if>
+  </div>
+  <sc-if value="{{ showLangNote }}" hint-placeholder-val="{{ false }}">
+    <div style="background:var(--mist);border-top:1px solid var(--silver)">
+      <div style="max-width:1200px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;gap:16px;font-size:14px;color:rgba(26,31,30,0.7)">
+        <span>Версия на другом языке готовится. Пока весь контент доступен на русском.</span>
+        <button type="button" onClick="{{ hideLangNote }}" aria-label="Скрыть сообщение" style="margin-left:auto;background:transparent;border:0;cursor:pointer;color:var(--petrol);font-size:16px;line-height:1;padding:4px 6px">×</button>
+      </div>
+    </div>
+  </sc-if>
+</header>
+
+<div id="daret-menu" role="dialog" aria-modal="true" aria-label="Меню" aria-hidden="{{ menuHidden }}" style="position:fixed;inset:0;z-index:70;pointer-events:{{ menuPointer }}">
+  <div onClick="{{ closeMenu }}" style="position:absolute;inset:0;background:rgba(11,61,58,0.18);transition:opacity 300ms cubic-bezier(0.16,1,0.3,1);opacity:{{ menuOpacity }}"></div>
+  <div style="position:absolute;top:0;right:0;height:100%;width:min(340px,86vw);background:#FFFFFF;border-left:1px solid var(--silver);padding:24px;display:flex;flex-direction:column;gap:8px;transition:transform 320ms cubic-bezier(0.16,1,0.3,1);transform:{{ menuTransform }}">
+    <div style="display:flex;align-items:center;justify-content:space-between;height:52px">
+      <img src="assets/daret-logo-mark.svg" alt="" width="24" height="38" style="height:32px;width:auto">
+      <button type="button" onClick="{{ closeMenu }}" aria-label="Закрыть меню" style="width:44px;height:44px;background:transparent;border:1px solid var(--silver);border-radius:999px;cursor:pointer;color:var(--petrol);font-size:18px;line-height:1">×</button>
+    </div>
+    <nav style="display:flex;flex-direction:column;margin-top:12px">
+      <a href="#solution" onClick="{{ closeMenu }}" style="padding:16px 0;border-bottom:1px solid var(--silver);font-family:var(--font-display);font-size:17px;letter-spacing:0.04em;color:var(--petrol)">Зачем</a>
+      <a href="#how" onClick="{{ closeMenu }}" style="padding:16px 0;border-bottom:1px solid var(--silver);font-family:var(--font-display);font-size:17px;letter-spacing:0.04em;color:var(--petrol)">Как работает</a>
+      <a href="#colors" onClick="{{ closeMenu }}" style="padding:16px 0;border-bottom:1px solid var(--silver);font-family:var(--font-display);font-size:17px;letter-spacing:0.04em;color:var(--petrol)">Цвета</a>
+      <a href="#specs" onClick="{{ closeMenu }}" style="padding:16px 0;border-bottom:1px solid var(--silver);font-family:var(--font-display);font-size:17px;letter-spacing:0.04em;color:var(--petrol)">Характеристики</a>
+      <a href="#faq" onClick="{{ closeMenu }}" style="padding:16px 0;border-bottom:1px solid var(--silver);font-family:var(--font-display);font-size:17px;letter-spacing:0.04em;color:var(--petrol)">Вопросы</a>
+    </nav>
+    <a href="#order" onClick="{{ closeMenu }}" style="margin-top:20px;text-align:center;background:var(--petrol);color:#FFFFFF;font-family:var(--font-display);font-weight:600;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;padding:16px 24px;border-radius:999px">Заказать</a>
+    <div role="group" aria-label="Язык интерфейса" style="margin-top:auto;display:flex;gap:2px;padding:3px;border:1px solid var(--silver);border-radius:999px;align-self:flex-start">
+      <button type="button" onClick="{{ setRu }}" aria-pressed="{{ isRu }}" style="border:0;cursor:pointer;font-family:var(--font-display);font-size:11px;letter-spacing:0.1em;font-weight:600;padding:8px 14px;border-radius:999px;background:{{ ruBg }};color:{{ ruFg }}">RU</button>
+      <button type="button" onClick="{{ setKz }}" aria-pressed="{{ isKz }}" style="border:0;cursor:pointer;font-family:var(--font-display);font-size:11px;letter-spacing:0.1em;font-weight:600;padding:8px 14px;border-radius:999px;background:{{ kzBg }};color:{{ kzFg }}">KZ</button>
+      <button type="button" onClick="{{ setEn }}" aria-pressed="{{ isEn }}" style="border:0;cursor:pointer;font-family:var(--font-display);font-size:11px;letter-spacing:0.1em;font-weight:600;padding:8px 14px;border-radius:999px;background:{{ enBg }};color:{{ enFg }}">EN</button>
+    </div>
+  </div>
+</div>
+
+<main>
+
+<section id="top" class="daret-hero" data-screen-label="Hero" ref="{{ heroRef }}" style="position:relative;height:85vh;min-height:560px;max-height:900px;overflow:hidden">
+  <div style="position:absolute;inset:0;z-index:0">
+    <!-- Фоновое видео. Постер виден, пока видео грузится, и остаётся, если оно не загрузилось вовсе. -->
+    <video class="daret-hero-video" ref="{{ heroVideoRef }}" autoplay muted loop playsinline preload="metadata"
+           poster="assets/daret-water-loop-poster.webp"
+           aria-hidden="true" tabindex="-1">
+      <source media="(max-width: 768px)" src="assets/daret-water-loop-mobile.mp4" type="video/mp4">
+      <source src="assets/daret-water-loop.mp4" type="video/mp4">
+    </video>
+    <div class="daret-hero-scrim"></div>
+  </div>
+  <div style="position:relative;z-index:1;height:100%;max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center">
+    <div style="max-width:600px">
+      <p style="margin:0 0 22px;font-family:var(--font-display);font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:rgba(11,61,58,0.72)">Сенсорный дәрет · до 50 % экономии воды</p>
+      <h1 style="font-family:var(--font-display);font-weight:500;letter-spacing:0.04em;color:var(--petrol);font-size:clamp(2.5rem,6vw,4.5rem);line-height:1.08;margin:0">Вдвое меньше воды на каждый дәрет</h1>
+      <p style="margin:28px 0 0;max-width:32em;font-size:1.0625rem;line-height:1.7;color:var(--ink)">Кран открывают и закрывают мокрыми руками, поэтому он течёт всё омовение. DÄRET подаёт воду только под рукой: убрали руку — вода остановилась. 420 мл на полный дәрет, обе руки свободны, лаконичный корпус — и хороший подарок.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:40px">
+        <a href="#order" style="background:var(--petrol);color:#FFFFFF;font-family:var(--font-display);font-weight:600;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;padding:17px 34px;border-radius:999px;transition:background 200ms" style-hover="background:#0E4B47;color:#FFFFFF">Заказать</a>
+        <a href="#how" style="border:1px solid var(--petrol);color:var(--petrol);font-family:var(--font-display);font-weight:600;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;padding:16px 32px;border-radius:999px;transition:background 200ms" style-hover="background:rgba(11,61,58,0.06);color:var(--petrol)">Как это работает</a>
+      </div>
+    </div>
+  </div>
+  <a href="#trust" aria-label="Пролистать вниз" style="position:absolute;z-index:1;left:50%;bottom:26px;transform:translateX(-50%);color:rgba(26,31,30,0.6);display:block">
+    <svg width="22" height="34" viewBox="0 0 22 34" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" style="display:block;animation:daret-nudge 2.6s cubic-bezier(0.16,1,0.3,1) infinite">
+      <path d="M11 6v20"></path><path d="M4.5 20l6.5 6.5 6.5-6.5"></path>
+    </svg>
+  </a>
+</section>
+
+<section id="trust" data-screen-label="Полоса доверия" style="background:var(--mist);padding:clamp(36px,5vw,52px) 24px;border-top:1px solid rgba(11,61,58,0.06)">
+  <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:28px 32px">
+    <div data-reveal data-delay="0" style="display:flex;align-items:center;gap:14px">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--petrol)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:0 0 auto"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5S12.5 5.5 12 3c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"></path></svg>
+      <span style="font-size:15px;color:var(--ink)">420 мл на полное омовение</span>
+    </div>
+    <div data-reveal data-delay="80" style="display:flex;align-items:center;gap:14px">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--petrol)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:0 0 auto"><path d="M4 11a8 8 0 0 1 16 0"></path><path d="M7.5 14.5a4.5 4.5 0 0 1 9 0"></path><circle cx="12" cy="19" r="1.4"></circle></svg>
+      <span style="font-size:15px;color:var(--ink)">Бесконтактный датчик</span>
+    </div>
+    <div data-reveal data-delay="160" style="display:flex;align-items:center;gap:14px">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--petrol)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:0 0 auto"><rect x="3" y="9" width="18" height="6" rx="3"></rect><path d="M7.5 12h9"></path></svg>
+      <span style="font-size:15px;color:var(--ink)">Зарядка USB-C</span>
+    </div>
+    <div data-reveal data-delay="240" style="display:flex;align-items:center;gap:14px">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--petrol)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:0 0 auto"><path d="M12 21.5s7.5-3.8 7.5-9.5V5.2L12 2.5 4.5 5.2V12c0 5.7 7.5 9.5 7.5 9.5z"></path></svg>
+      <span style="font-size:15px;color:var(--ink)">Защита IPX5</span>
+    </div>
+  </div>
+</section>
+
+<section id="solution" data-screen-label="Проблема и решение" style="background:#FFFFFF;padding:clamp(80px,9vw,120px) 24px">
+  <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:clamp(40px,5vw,80px);align-items:center">
+    <div data-reveal>
+      <p style="margin:0 0 20px;font-family:var(--font-display);font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:rgba(11,61,58,0.6)">Зачем</p>
+      <h2 style="font-family:var(--font-display);font-weight:500;letter-spacing:0.04em;color:var(--petrol);font-size:clamp(2rem,4vw,3rem);line-height:1.15">Больше никакой возни с бутылкой</h2>
+      <p style="margin:28px 0 0;max-width:34em;color:var(--ink)">Бутылку нужно держать и наклонять — одной рукой это почти невозможно, поток рваный, половина воды уходит мимо. Кран не лучше: его открывают и закрывают мокрыми руками, поэтому всё омовение он течёт впустую. DÄRET стоит сам и даёт ровную струю ровно тогда, когда вы подносите руку.</p>
+    </div>
+    <img data-reveal data-delay="120" src="assets/daret-water-stream.webp" width="2752" height="1536" loading="lazy" alt="Макро: ровная струя воды из сопла диспенсера DÄRET" style="width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:16px;display:block">
+  </div>
+</section>
+
+<section id="reasons" data-screen-label="Четыре причины" style="background:#F6F3EC;padding:clamp(80px,9vw,120px) 24px">
+  <div style="max-width:1200px;margin:0 auto">
+    <h2 data-reveal style="font-family:var(--font-display);font-weight:500;letter-spacing:0.04em;color:var(--petrol);font-size:clamp(2rem,4vw,3rem);line-height:1.15;max-width:18em">Четыре причины</h2>
+    <div style="margin-top:clamp(40px,5vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:24px">
+      <div data-reveal data-delay="0" style="background:#FFFFFF;border:1px solid var(--silver);border-radius:16px;padding:36px;transition:transform 200ms cubic-bezier(0.16,1,0.3,1),border-color 200ms,box-shadow 200ms" style-hover="transform:translateY(-4px);border-color:rgba(11,61,58,0.28);box-shadow:0 8px 24px rgba(11,61,58,0.06)">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--petrol)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2.5"></rect><path d="M9 7V5.5A2.5 2.5 0 0 1 11.5 3h1A2.5 2.5 0 0 1 15 5.5V7"></path><path d="M3 12.5h18"></path></svg>
+        <h3 style="margin:24px 0 10px;font-family:var(--font-display);font-weight:600;letter-spacing:0.04em;color:var(--petrol);font-size:20px">Меньше воды</h3>
+        <p style="margin:0;color:var(--ink)">420 мл хватает на полное омовение — примерно вдвое меньше, чем уходит из открытого крана.</p>
+      </div>
+      <div data-reveal data-delay="80" style="background:#FFFFFF;border:1px solid var(--silver);border-radius:16px;padding:36px;transition:transform 200ms cubic-bezier(0.16,1,0.3,1),border-color 200ms,box-shadow 200ms" style-hover="transform:translateY(-4px);border-color:rgba(11,61,58,0.28);box-shadow:0 8px 24px rgba(11,61,58,0.06)">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--petrol)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5S12.5 5.5 12 3c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"></path><path d="M9 15.5h6"></path></svg>
+        <h3 style="margin:24px 0 10px;font-family:var(--font-display);font-weight:600;letter-spacing:0.04em;color:var(--petrol);font-size:20px">Обе руки свободны</h3>
+        <p style="margin:0;color:var(--ink)">Устройство стоит само, вода идёт по датчику. Держать и наклонять ничего не нужно.</p>
+      </div>
+      <div data-reveal data-delay="160" style="background:#FFFFFF;border:1px solid var(--silver);border-radius:16px;padding:36px;transition:transform 200ms cubic-bezier(0.16,1,0.3,1),border-color 200ms,box-shadow 200ms" style-hover="transform:translateY(-4px);border-color:rgba(11,61,58,0.28);box-shadow:0 8px 24px rgba(11,61,58,0.06)">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--petrol)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10.5a8 8 0 0 1 16 0"></path><path d="M7.5 14a4.5 4.5 0 0 1 9 0"></path><circle cx="12" cy="18.5" r="1.4"></circle></svg>
+        <h3 style="margin:24px 0 10px;font-family:var(--font-display);font-weight:600;letter-spacing:0.04em;color:var(--petrol);font-size:20px">В дороге и в путешествии</h3>
+        <p style="margin:0;color:var(--ink)">293 грамма и 21 сантиметр. В бардачок, в рюкзак, в ручную кладь.</p>
+      </div>
+      <div data-reveal data-delay="240" style="background:#FFFFFF;border:1px solid var(--silver);border-radius:16px;padding:36px;transition:transform 200ms cubic-bezier(0.16,1,0.3,1),border-color 200ms,box-shadow 200ms" style-hover="transform:translateY(-4px);border-color:rgba(11,61,58,0.28);box-shadow:0 8px 24px rgba(11,61,58,0.06)">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--petrol)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="9" width="18" height="6" rx="3"></rect><path d="M7.5 12h9"></path></svg>
+        <h3 style="margin:24px 0 10px;font-family:var(--font-display);font-weight:600;letter-spacing:0.04em;color:var(--petrol);font-size:20px">Хороший подарок</h3>
+        <p style="margin:0;color:var(--ink)">Лаконичный корпус в двух отделках и универсальный USB-C. Уместный подарок близким.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how" data-screen-label="Как это работает" style="background:#FFFFFF;padding:clamp(80px,9vw,120px) 24px">
+  <div style="max-width:1200px;margin:0 auto">
+    <h2 data-reveal style="font-family:var(--font-display);font-weight:500;letter-spacing:0.04em;color:var(--petrol);font-size:clamp(2rem,4vw,3rem);line-height:1.15">Как это работает</h2>
+    <div style="position:relative;margin-top:clamp(40px,5vw,64px)">
+      <sc-if value="{{ desktop }}" hint-placeholder-val="{{ true }}">
+        <div aria-hidden="true" style="position:absolute;left:0;right:0;top:26px;height:1px;background:var(--silver)"></div>
+      </sc-if>
+      <ol style="position:relative;list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:40px 32px">
+        <li data-reveal data-delay="0" style="background:#FFFFFF;padding-right:16px">
+          <div style="font-family:var(--font-display);font-weight:500;letter-spacing:0.04em;color:var(--straw);font-size:48px;line-height:1">01</div>
+          <h3 style="margin:20px 0 8px;font-family:var(--font-display);font-weight:600;letter-spacing:0.04em;color:var(--petrol);font-size:18px">Наполните</h3>
+          <p style="margin:0;font-size:16px;color:var(--ink)">До 420 мл чистой воды в резервуар.</p>
+        </li>
+        <li data-reveal data-delay="80" style="background:#FFFFFF;padding-right:16px">
+          <div style="font-family:var(--font-display);font-weight:500;letter-spacing:0.04em;color:var(--straw);font-size:48px;line-height:1">02</div>
+          <h3 style="margin:20px 0 8px;font-family:var(--font-display);font-weight:600;letter-spacing:0.04em;color:var(--petrol);font-size:18px">Включите</h3>
+          <p style="margin:0;font-size:16px;color:var(--ink)">Касание сенсорной кнопки на крышке.</p>
+        </li>
+        <li data-reveal data-delay="160" style="background:#FFFFFF;padding-right:16px">
+          <div style="font-family:var(--font-display);font-weight:500;letter-spacing:0.04em;color:var(--straw);font-size:48px;line-height:1">03</div>
+          <h3 style="margin:20px 0 8px;font-family:var(--font-display);font-weight:600;letter-spacing:0.04em;color:var(--petrol);font-size:18px">Поднесите руку</h3>
+          <p style="margin:0;font-size:16px;color:var(--ink)">Датчик срабатывает на расстоянии до 6 см, отклик 0,25 с.</p>
+        </li>
+        <li data-reveal data-delay="240" style="background:#FFFFFF;padding-right:16px">
+          <div style="font-family:var(--font-display);font-weight:500;letter-spacing:0.04em;color:var(--straw);font-size:48px;line-height:1">04</div>
+          <h3 style="margin:20px 0 8px;font-family:var(--font-display);font-weight:600;letter-spacing:0.04em;color:var(--petrol);font-size:18px">Совершите дәрет</h3>
+          <p style="margin:0;font-size:16px;color:var(--ink)">Дома, в поездке, на работе.</p>
+        </li>
+      </ol>
+    </div>
+    <img data-reveal src="assets/daret-hand-sensor.webp" width="2752" height="1536" loading="lazy" alt="Рука у бесконтактного датчика диспенсера DÄRET" style="margin-top:clamp(48px,6vw,80px);width:100%;height:auto;aspect-ratio:21/9;object-fit:cover;object-position:50% 45%;border-radius:16px;display:block">
+  </div>
+</section>
+
+<section id="colors" data-screen-label="Два корпуса" style="background:var(--mist);padding:clamp(80px,9vw,120px) 24px">
+  <div style="max-width:1200px;margin:0 auto">
+    <h2 data-reveal style="font-family:var(--font-display);font-weight:500;letter-spacing:0.04em;color:var(--petrol);font-size:clamp(2rem,4vw,3rem);line-height:1.15">Два корпуса</h2>
+    <p data-reveal data-delay="80" style="margin:24px 0 0;max-width:34em;font-size:1.0625rem;line-height:1.7;color:rgba(26,31,30,0.6)">Спокойная форма без лишних деталей — устройство уместно смотрится и в машине, и на полке в ванной. Обе отделки одинаково хорошо выглядят в подарок.</p>
+    <div style="margin-top:clamp(40px,5vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:24px">
+      <article data-reveal data-delay="0" style="background:#FFFFFF;border:1px solid var(--silver);border-radius:16px;padding:24px;transition:transform 200ms cubic-bezier(0.16,1,0.3,1),border-color 200ms,box-shadow 200ms" style-hover="transform:translateY(-4px);border-color:rgba(11,61,58,0.28);box-shadow:0 8px 24px rgba(11,61,58,0.06)">
+        <img src="assets/daret-white-front.webp" width="819" height="819" loading="lazy" alt="DÄRET Pure White — белый корпус, вид спереди" style="width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;border-radius:12px;display:block;background:var(--mist)">
+        <div style="display:flex;align-items:center;gap:14px;margin-top:26px">
+          <span aria-hidden="true" style="width:22px;height:22px;border-radius:999px;background:#FFFFFF;border:1px solid var(--silver);flex:0 0 auto"></span>
+          <h3 style="font-family:var(--font-display);font-weight:600;letter-spacing:0.04em;color:var(--petrol);font-size:20px">Pure White</h3>
+        </div>
+        <p style="margin:12px 0 0;font-size:16px;color:rgba(26,31,30,0.6)">Матовый белый, чистый и нейтральный.</p>
+      </article>
+      <article data-reveal data-delay="80" style="background:#FFFFFF;border:1px solid var(--silver);border-radius:16px;padding:24px;transition:transform 200ms cubic-bezier(0.16,1,0.3,1),border-color 200ms,box-shadow 200ms" style-hover="transform:translateY(-4px);border-color:rgba(11,61,58,0.28);box-shadow:0 8px 24px rgba(11,61,58,0.06)">
+        <img src="assets/daret-straw-front.webp" width="2048" height="2048" loading="lazy" alt="DÄRET Wheat Straw — бежевый корпус из биокомпозита, вид спереди" style="width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;border-radius:12px;display:block;background:var(--mist)">
+        <div style="display:flex;align-items:center;gap:14px;margin-top:26px">
+          <span aria-hidden="true" style="width:22px;height:22px;border-radius:999px;background:var(--straw);border:1px solid rgba(26,31,30,0.10);flex:0 0 auto"></span>
+          <h3 style="font-family:var(--font-display);font-weight:600;letter-spacing:0.04em;color:var(--petrol);font-size:20px">Wheat Straw</h3>
+        </div>
+        <p style="margin:12px 0 0;font-size:16px;color:rgba(26,31,30,0.6)">Тёплый биокомпозит с текстурой пшеничной соломы.</p>
+      </article>
+    </div>
+    <div style="margin-top:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:24px">
+      <img data-reveal data-delay="0" src="assets/daret-white-logo-drops.webp" width="2752" height="1536" loading="lazy" alt="Макро: логотип DÄRET на белом корпусе с каплями воды" style="width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;border-radius:16px;display:block">
+      <img data-reveal data-delay="80" src="assets/daret-straw-texture.webp" width="2752" height="1536" loading="lazy" alt="Макро: текстура биокомпозита пшеничной соломы" style="width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;border-radius:16px;display:block">
+    </div>
+  </div>
+</section>
+
+<section id="specs" data-screen-label="Характеристики" style="background:#FFFFFF;padding:clamp(80px,9vw,120px) 24px">
+  <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:clamp(40px,5vw,72px);align-items:start">
+    <img data-reveal src="assets/daret-white-hero.webp" width="2752" height="1536" loading="lazy" alt="DÄRET в белом корпусе на травертиновой поверхности, ракурс три четверти" style="width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:58% 50%;border-radius:16px;display:block">
+    <div data-reveal data-delay="120">
+      <p style="margin:0 0 20px;font-family:var(--font-display);font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:rgba(11,61,58,0.6)">Спецификация</p>
+      <h2 style="font-family:var(--font-display);font-weight:500;letter-spacing:0.04em;color:var(--petrol);font-size:clamp(2rem,4vw,3rem);line-height:1.15">Характеристики</h2>
+      <table style="width:100%;margin-top:36px;border-collapse:collapse;font-size:16px">
+        <tbody>
+          <tr style="border-bottom:1px solid var(--silver)"><th scope="row" style="text-align:left;font-weight:400;color:rgba(26,31,30,0.6);padding:14px 12px 14px 0">Объём резервуара</th><td style="text-align:right;color:var(--ink);padding:14px 0">420 мл</td></tr>
+          <tr style="border-bottom:1px solid var(--silver)"><th scope="row" style="text-align:left;font-weight:400;color:rgba(26,31,30,0.6);padding:14px 12px 14px 0">Питание</th><td style="text-align:right;color:var(--ink);padding:14px 0">DC-5V, USB-C</td></tr>
+          <tr style="border-bottom:1px solid var(--silver)"><th scope="row" style="text-align:left;font-weight:400;color:rgba(26,31,30,0.6);padding:14px 12px 14px 0">Мощность</th><td style="text-align:right;color:var(--ink);padding:14px 0">1,5 Вт</td></tr>
+          <tr style="border-bottom:1px solid var(--silver)"><th scope="row" style="text-align:left;font-weight:400;color:rgba(26,31,30,0.6);padding:14px 12px 14px 0">Включение</th><td style="text-align:right;color:var(--ink);padding:14px 0">сенсорное касание</td></tr>
+          <tr style="border-bottom:1px solid var(--silver)"><th scope="row" style="text-align:left;font-weight:400;color:rgba(26,31,30,0.6);padding:14px 12px 14px 0">Дистанция датчика</th><td style="text-align:right;color:var(--ink);padding:14px 0">0–60 мм</td></tr>
+          <tr style="border-bottom:1px solid var(--silver)"><th scope="row" style="text-align:left;font-weight:400;color:rgba(26,31,30,0.6);padding:14px 12px 14px 0">Скорость отклика</th><td style="text-align:right;color:var(--ink);padding:14px 0">0,25 с</td></tr>
+          <tr style="border-bottom:1px solid var(--silver)"><th scope="row" style="text-align:left;font-weight:400;color:rgba(26,31,30,0.6);padding:14px 12px 14px 0">Влагозащита</th><td style="text-align:right;color:var(--ink);padding:14px 0">IPX5</td></tr>
+          <tr style="border-bottom:1px solid var(--silver)"><th scope="row" style="text-align:left;font-weight:400;color:rgba(26,31,30,0.6);padding:14px 12px 14px 0">Габариты</th><td style="text-align:right;color:var(--ink);padding:14px 0">210 × 75 мм</td></tr>
+          <tr style="border-bottom:1px solid var(--silver)"><th scope="row" style="text-align:left;font-weight:400;color:rgba(26,31,30,0.6);padding:14px 12px 14px 0">Вес</th><td style="text-align:right;color:var(--ink);padding:14px 0">293 г</td></tr>
+          <tr style="border-bottom:1px solid var(--silver)"><th scope="row" style="text-align:left;font-weight:400;color:rgba(26,31,30,0.6);padding:14px 12px 14px 0">Рабочая температура</th><td style="text-align:right;color:var(--ink);padding:14px 0">от 5 до 45 °C</td></tr>
+          <tr style="border-bottom:1px solid var(--silver)"><th scope="row" style="text-align:left;font-weight:400;color:rgba(26,31,30,0.6);padding:14px 12px 14px 0">Влажность</th><td style="text-align:right;color:var(--ink);padding:14px 0">0–85 %</td></tr>
+          <tr><th scope="row" style="text-align:left;font-weight:400;color:rgba(26,31,30,0.6);padding:14px 12px 14px 0">В комплекте</th><td style="text-align:right;color:var(--ink);padding:14px 0">кабель зарядки, крепление-стикер</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="scenarios" data-screen-label="Сценарии" style="background:#F6F3EC;padding:clamp(80px,9vw,120px) 24px">
+  <div style="max-width:1200px;margin:0 auto">
+    <h2 data-reveal style="font-family:var(--font-display);font-weight:500;letter-spacing:0.04em;color:var(--petrol);font-size:clamp(2rem,4vw,3rem);line-height:1.15">Где им пользуются</h2>
+    <div style="margin-top:clamp(40px,5vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:clamp(32px,4vw,56px);align-items:center">
+      <img data-reveal src="assets/daret-travel-car.webp" width="2752" height="1536" loading="lazy" alt="DÄRET на откинутом борту машины в степи, руки под струёй воды" style="width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;border-radius:16px;display:block">
+      <ul data-reveal data-delay="120" style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,140px),1fr));gap:20px 24px">
+        <li style="border-top:1px solid var(--silver);padding-top:16px;font-family:var(--font-display);font-weight:500;letter-spacing:0.04em;color:var(--petrol);font-size:18px">В дороге</li>
+        <li style="border-top:1px solid var(--silver);padding-top:16px;font-family:var(--font-display);font-weight:500;letter-spacing:0.04em;color:var(--petrol);font-size:18px">В офисе</li>
+        <li style="border-top:1px solid var(--silver);padding-top:16px;font-family:var(--font-display);font-weight:500;letter-spacing:0.04em;color:var(--petrol);font-size:18px">В машине</li>
+        <li style="border-top:1px solid var(--silver);padding-top:16px;font-family:var(--font-display);font-weight:500;letter-spacing:0.04em;color:var(--petrol);font-size:18px">Дома</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="water" data-screen-label="Вода" style="position:relative;background:var(--mist);padding:clamp(80px,9vw,120px) 24px;overflow:hidden">
+  <img src="assets/bg-water-ripples.webp" width="2752" height="1536" loading="lazy" alt="" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.10;pointer-events:none">
+  <div style="position:relative;max-width:1200px;margin:0 auto">
+    <div data-reveal style="max-width:44em">
+      <h2 style="font-family:var(--font-display);font-weight:500;letter-spacing:0.04em;color:var(--petrol);font-size:clamp(2rem,4vw,3rem);line-height:1.15">Ровно столько, сколько нужно</h2>
+      <p style="margin:28px 0 0;max-width:34em;color:var(--ink)">Открытый кран расходует воду всё время, пока он открыт, — в том числе когда руки не под струёй, ведь закрыть его можно только рукой. DÄRET подаёт воду по датчику и останавливает сразу, как вы её убрали. Умеренность в омовении — часть самой традиции.</p>
+    </div>
+    <!-- [ПРОВЕРИТЬ] Экономия воды. Когда появится подтверждённая цифра — задайте её в Tweaks (свойство «Экономия воды», например «до 60 %»), и она выведется крупным числом с анимацией счётчика. -->
+    <sc-if value="{{ hasSaving }}" hint-placeholder-val="{{ false }}">
+      <div data-reveal data-delay="120" style="margin-top:clamp(40px,5vw,64px);display:flex;flex-wrap:wrap;align-items:baseline;gap:20px">
+        <span ref="{{ savingRef }}" style="font-family:var(--font-display);font-weight:500;letter-spacing:0.04em;color:var(--petrol);font-size:clamp(3.5rem,9vw,7rem);line-height:1">{{ savingText }}</span>
+        <span style="font-size:16px;color:rgba(26,31,30,0.6);max-width:22em">меньше воды по сравнению с открытым краном</span>
+      </div>
+    </sc-if>
+  </div>
+</section>
+
+<section id="faq" data-screen-label="Вопросы" style="background:#FFFFFF;padding:clamp(80px,9vw,120px) 24px">
+  <div style="max-width:720px;margin:0 auto">
+    <h2 data-reveal style="font-family:var(--font-display);font-weight:500;letter-spacing:0.04em;color:var(--petrol);font-size:clamp(2rem,4vw,3rem);line-height:1.15;text-align:center">Вопросы</h2>
+    <div data-reveal data-delay="80" style="margin-top:clamp(40px,5vw,56px);border-top:1px solid var(--silver)">
+      <div style="border-bottom:1px solid var(--silver)">
+        <button type="button" onClick="{{ faq0 }}" aria-expanded="{{ e0 }}" aria-controls="faq-panel-0" style="width:100%;display:flex;align-items:flex-start;justify-content:space-between;gap:24px;text-align:left;background:transparent;border:0;cursor:pointer;padding:26px 0;font-family:var(--font-display);font-weight:500;letter-spacing:0.04em;color:var(--petrol);font-size:18px;line-height:1.4">
+          <span>Хватает ли 420 мл на полное омовение?</span>
+          <span aria-hidden="true" style="flex:0 0 auto;width:18px;height:18px;position:relative;margin-top:4px;transition:transform 300ms cubic-bezier(0.16,1,0.3,1);transform:rotate({{ r0 }})">
+            <span style="position:absolute;left:0;right:0;top:8px;height:1px;background:var(--petrol)"></span>
+            <span style="position:absolute;top:0;bottom:0;left:8px;width:1px;background:var(--petrol)"></span>
+          </span>
+        </button>
+        <div id="faq-panel-0" style="overflow:hidden;transition:max-height 300ms cubic-bezier(0.16,1,0.3,1);max-height:{{ h0 }}">
+          <p style="margin:0;padding:0 0 26px;max-width:34em;color:var(--ink)">Да. Вода идёт только те секунды, когда рука под датчиком, поэтому расход примерно вдвое ниже, чем из открытого крана, — 420 мл достаточно взрослому человеку на полное омовение.</p>
+        </div>
+      </div>
+      <div style="border-bottom:1px solid var(--silver)">
+        <button type="button" onClick="{{ faq1 }}" aria-expanded="{{ e1 }}" aria-controls="faq-panel-1" style="width:100%;display:flex;align-items:flex-start;justify-content:space-between;gap:24px;text-align:left;background:transparent;border:0;cursor:pointer;padding:26px 0;font-family:var(--font-display);font-weight:500;letter-spacing:0.04em;color:var(--petrol);font-size:18px;line-height:1.4">
+          <span>Чем это лучше обычной бутылки?</span>
+          <span aria-hidden="true" style="flex:0 0 auto;width:18px;height:18px;position:relative;margin-top:4px;transition:transform 300ms cubic-bezier(0.16,1,0.3,1);transform:rotate({{ r1 }})">
+            <span style="position:absolute;left:0;right:0;top:8px;height:1px;background:var(--petrol)"></span>
+            <span style="position:absolute;top:0;bottom:0;left:8px;width:1px;background:var(--petrol)"></span>
+          </span>
+        </button>
+        <div id="faq-panel-1" style="overflow:hidden;transition:max-height 300ms cubic-bezier(0.16,1,0.3,1);max-height:{{ h1 }}">
+          <p style="margin:0;padding:0 0 26px;max-width:34em;color:var(--ink)">Бутылку нужно держать — здесь обе руки свободны. Струя ровная, без брызг, а расход воды примерно вдвое меньше.</p>
+        </div>
+      </div>
+      <div style="border-bottom:1px solid var(--silver)">
+        <button type="button" onClick="{{ faq2 }}" aria-expanded="{{ e2 }}" aria-controls="faq-panel-2" style="width:100%;display:flex;align-items:flex-start;justify-content:space-between;gap:24px;text-align:left;background:transparent;border:0;cursor:pointer;padding:26px 0;font-family:var(--font-display);font-weight:500;letter-spacing:0.04em;color:var(--petrol);font-size:18px;line-height:1.4">
+          <span>Сколько держит заряд?</span>
+          <span aria-hidden="true" style="flex:0 0 auto;width:18px;height:18px;position:relative;margin-top:4px;transition:transform 300ms cubic-bezier(0.16,1,0.3,1);transform:rotate({{ r2 }})">
+            <span style="position:absolute;left:0;right:0;top:8px;height:1px;background:var(--petrol)"></span>
+            <span style="position:absolute;top:0;bottom:0;left:8px;width:1px;background:var(--petrol)"></span>
+          </span>
+        </button>
+        <div id="faq-panel-2" style="overflow:hidden;transition:max-height 300ms cubic-bezier(0.16,1,0.3,1);max-height:{{ h2 }}">
+          <!-- [ПРОВЕРИТЬ] точную цифру автономности -->
+          <p style="margin:0;padding:0 0 26px;max-width:34em;color:var(--ink)">Одного заряда через USB-C хватает на длительный период — зависит от частоты использования.</p>
+        </div>
+      </div>
+      <div style="border-bottom:1px solid var(--silver)">
+        <button type="button" onClick="{{ faq3 }}" aria-expanded="{{ e3 }}" aria-controls="faq-panel-3" style="width:100%;display:flex;align-items:flex-start;justify-content:space-between;gap:24px;text-align:left;background:transparent;border:0;cursor:pointer;padding:26px 0;font-family:var(--font-display);font-weight:500;letter-spacing:0.04em;color:var(--petrol);font-size:18px;line-height:1.4">
+          <span>Можно ли пользоваться дома?</span>
+          <span aria-hidden="true" style="flex:0 0 auto;width:18px;height:18px;position:relative;margin-top:4px;transition:transform 300ms cubic-bezier(0.16,1,0.3,1);transform:rotate({{ r3 }})">
+            <span style="position:absolute;left:0;right:0;top:8px;height:1px;background:var(--petrol)"></span>
+            <span style="position:absolute;top:0;bottom:0;left:8px;width:1px;background:var(--petrol)"></span>
+          </span>
+        </button>
+        <div id="faq-panel-3" style="overflow:hidden;transition:max-height 300ms cubic-bezier(0.16,1,0.3,1);max-height:{{ h3 }}">
+          <p style="margin:0;padding:0 0 26px;max-width:34em;color:var(--ink)">Да. В комплекте есть крепление, устройство можно закрепить на стене и использовать ежедневно.</p>
+        </div>
+      </div>
+      <div style="border-bottom:1px solid var(--silver)">
+        <button type="button" onClick="{{ faq4 }}" aria-expanded="{{ e4 }}" aria-controls="faq-panel-4" style="width:100%;display:flex;align-items:flex-start;justify-content:space-between;gap:24px;text-align:left;background:transparent;border:0;cursor:pointer;padding:26px 0;font-family:var(--font-display);font-weight:500;letter-spacing:0.04em;color:var(--petrol);font-size:18px;line-height:1.4">
+          <span>Как ухаживать за устройством?</span>
+          <span aria-hidden="true" style="flex:0 0 auto;width:18px;height:18px;position:relative;margin-top:4px;transition:transform 300ms cubic-bezier(0.16,1,0.3,1);transform:rotate({{ r4 }})">
+            <span style="position:absolute;left:0;right:0;top:8px;height:1px;background:var(--petrol)"></span>
+            <span style="position:absolute;top:0;bottom:0;left:8px;width:1px;background:var(--petrol)"></span>
+          </span>
+        </button>
+        <div id="faq-panel-4" style="overflow:hidden;transition:max-height 300ms cubic-bezier(0.16,1,0.3,1);max-height:{{ h4 }}">
+          <p style="margin:0;padding:0 0 26px;max-width:34em;color:var(--ink)">Резервуар промывается чистой водой. Корпус имеет защиту IPX5 и выдерживает влажную протирку.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="order" data-screen-label="Заявка" style="background:#F6F3EC;padding:clamp(80px,9vw,120px) 24px">
+  <div style="max-width:760px;margin:0 auto;text-align:center">
+    <h2 data-reveal style="font-family:var(--font-display);font-weight:500;letter-spacing:0.04em;color:var(--petrol);font-size:clamp(2rem,4vw,3rem);line-height:1.15">Оставьте заявку</h2>
+    <p data-reveal data-delay="80" style="margin:24px auto 0;max-width:30em;color:var(--ink)">Свяжемся, уточним цвет корпуса и количество, подтвердим доставку.</p>
+    <form data-reveal data-delay="160" onSubmit="{{ submit }}" style="margin-top:clamp(40px,5vw,56px);text-align:left">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:32px">
+        <label style="display:flex;flex-direction:column;gap:10px">
+          <span style="font-family:var(--font-display);font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:rgba(11,61,58,0.6)">Имя</span>
+          <input type="text" name="name" required placeholder="Как к вам обращаться" style="font-family:var(--font-body);font-size:1.0625rem;color:var(--ink);background:transparent;border:0;border-bottom:1px solid var(--silver);padding:10px 0;transition:border-color 200ms" style-focus="border-bottom-color:var(--petrol);outline:none">
+        </label>
+        <label style="display:flex;flex-direction:column;gap:10px">
+          <span style="font-family:var(--font-display);font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:rgba(11,61,58,0.6)">Телефон</span>
+          <input type="tel" name="phone" required placeholder="+7 700 000 00 00" style="font-family:var(--font-body);font-size:1.0625rem;color:var(--ink);background:transparent;border:0;border-bottom:1px solid var(--silver);padding:10px 0;transition:border-color 200ms" style-focus="border-bottom-color:var(--petrol);outline:none">
+        </label>
+        <label style="display:flex;flex-direction:column;gap:10px">
+          <span style="font-family:var(--font-display);font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:rgba(11,61,58,0.6)">Цвет корпуса</span>
+          <select name="color" style="font-family:var(--font-body);font-size:1.0625rem;color:var(--ink);background:transparent;border:0;border-bottom:1px solid var(--silver);padding:10px 0;transition:border-color 200ms" style-focus="border-bottom-color:var(--petrol);outline:none">
+            <option>Pure White</option>
+            <option>Wheat Straw</option>
+            <option>Пока не решил</option>
+          </select>
+        </label>
+        <label style="display:flex;flex-direction:column;gap:10px">
+          <span style="font-family:var(--font-display);font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:rgba(11,61,58,0.6)">Количество</span>
+          <input type="number" name="qty" min="1" max="99" value="1" style="font-family:var(--font-body);font-size:1.0625rem;color:var(--ink);background:transparent;border:0;border-bottom:1px solid var(--silver);padding:10px 0;transition:border-color 200ms" style-focus="border-bottom-color:var(--petrol);outline:none">
+        </label>
+      </div>
+      <div style="margin-top:44px;display:flex;flex-wrap:wrap;align-items:center;gap:24px">
+        <button type="submit" style="background:var(--petrol);color:#FFFFFF;font-family:var(--font-display);font-weight:600;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;padding:17px 34px;border:0;border-radius:999px;cursor:pointer;transition:background 200ms" style-hover="background:#0E4B47">Отправить заявку</button>
+        <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+          <span role="status" style="font-size:15px;color:rgba(26,31,30,0.6)">Заявка принята. Мы свяжемся с вами в рабочее время.</span>
+        </sc-if>
+      </div>
+    </form>
+    <p style="margin:36px 0 0;text-align:left;font-size:15px;color:rgba(26,31,30,0.6)">Или напишите: <a href="mailto:info@sauapker.kz" style="color:var(--petrol);border-bottom:1px solid rgba(11,61,58,0.28)">info@sauapker.kz</a></p>
+  </div>
+</section>
+
+</main>
+
+<footer style="background:#FFFFFF;border-top:1px solid var(--silver);padding:clamp(56px,7vw,88px) 24px 40px">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:48px">
+      <div>
+        <img src="assets/daret-logo.svg" alt="DÄRET by SAUAPKER" width="98" height="120" loading="lazy" style="height:96px;width:auto;display:block">
+        <p style="margin:24px 0 0;max-width:24em;font-size:15px;color:rgba(26,31,30,0.6)">Казахстанский бренд портативных устройств для омовения. Спокойно, точно, без лишней воды.</p>
+      </div>
+      <nav aria-label="Навигация в подвале" style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-family:var(--font-display);font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:rgba(11,61,58,0.6);margin-bottom:6px">Разделы</span>
+        <a href="#solution" style="font-size:15px;color:var(--ink)" style-hover="color:var(--petrol)">Зачем</a>
+        <a href="#how" style="font-size:15px;color:var(--ink)" style-hover="color:var(--petrol)">Как работает</a>
+        <a href="#colors" style="font-size:15px;color:var(--ink)" style-hover="color:var(--petrol)">Цвета</a>
+        <a href="#specs" style="font-size:15px;color:var(--ink)" style-hover="color:var(--petrol)">Характеристики</a>
+        <a href="#faq" style="font-size:15px;color:var(--ink)" style-hover="color:var(--petrol)">Вопросы</a>
+      </nav>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-family:var(--font-display);font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:rgba(11,61,58,0.6);margin-bottom:6px">Контакты</span>
+        <a href="mailto:info@sauapker.kz" style="font-size:15px;color:var(--ink)" style-hover="color:var(--petrol)">info@sauapker.kz</a>
+        <a href="tel:+77000000000" style="font-size:15px;color:var(--ink)" style-hover="color:var(--petrol)">+7 700 000 00 00</a>
+        <span style="font-size:15px;color:rgba(26,31,30,0.6)">Алматы, Казахстан</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-family:var(--font-display);font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:rgba(11,61,58,0.6);margin-bottom:6px">Соцсети</span>
+        <a href="#" style="font-size:15px;color:var(--ink)" style-hover="color:var(--petrol)">Instagram</a>
+        <a href="#" style="font-size:15px;color:var(--ink)" style-hover="color:var(--petrol)">Telegram</a>
+        <a href="#" style="font-size:15px;color:var(--ink)" style-hover="color:var(--petrol)">WhatsApp</a>
+      </div>
+    </div>
+    <div style="margin-top:clamp(40px,5vw,64px);padding-top:24px;border-top:1px solid var(--silver);display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center">
+      <span style="font-size:14px;color:rgba(26,31,30,0.6)">© 2026 SAUAPKER</span>
+      <a href="#" style="font-size:14px;color:rgba(26,31,30,0.6)" style-hover="color:var(--petrol)">Политика конфиденциальности</a>
+      <a href="#" style="font-size:14px;color:rgba(26,31,30,0.6)" style-hover="color:var(--petrol)">Публичная оферта</a>
+    </div>
+  </div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;reveal&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Поведение&quot;},&quot;heroHeight&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:85,&quot;min&quot;:70,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;vh&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;waterSaving&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;до 50 %&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Секция «Вода»&quot;}}">
+class Component extends DCLogic {
+  state = { mobile: false, menu: false, faq: -1, lang: 'RU', note: false, sent: false };
+
+  componentDidMount() {
+    document.documentElement.lang = 'ru';
+    document.title = 'DÄRET by SAUAPKER — портативный диспенсер для омовения';
+    this.mq = window.matchMedia('(max-width: 900px)');
+    this.onMq = () => this.setState({ mobile: this.mq.matches });
+    this.onMq();
+    this.mq.addEventListener('change', this.onMq);
+    this.applyHero();
+    this.initHeroVideo();
+    this.initSaving();
+    this.timer = setTimeout(() => this.initReveal(), 120);
+  }
+
+  componentDidUpdate() { this.applyHero(); this.initHeroVideo(); this.initReveal(); this.initSaving(); }
+
+  componentWillUnmount() {
+    if (this.mq) this.mq.removeEventListener('change', this.onMq);
+    if (this.io) this.io.disconnect();
+    if (this.savingIo) this.savingIo.disconnect();
+    if (this.videoMq) this.videoMq.removeEventListener('change', this.onVideoMq);
+    if (this.onVideoVis) document.removeEventListener('visibilitychange', this.onVideoVis);
+    clearTimeout(this.timer);
+  }
+
+  initHeroVideo() {
+    const v = this.heroVideo && this.heroVideo.current;
+    if (!v || this.heroVideoReady) return;
+    this.heroVideoReady = true;
+
+    // Рендерер не переносит булевы muted/loop на элемент — выставляем свойствами,
+    // иначе Safari блокирует автозапуск, а ролик проигрывается один раз.
+    v.muted = true;
+    v.defaultMuted = true;
+    v.loop = true;
+    v.setAttribute('muted', '');
+
+    // media у <source> вычисляется только при загрузке — на смене брейкпоинта меняем сами.
+    this.videoMq = window.matchMedia('(max-width: 768px)');
+    this.onVideoMq = () => {
+      const want = this.videoMq.matches
+        ? 'assets/daret-water-loop-mobile.mp4'
+        : 'assets/daret-water-loop.mp4';
+      if ((v.currentSrc || '').endsWith(want.slice(want.lastIndexOf('/') + 1))) return;
+      v.src = want;
+      v.load();
+      this.playHeroVideo(v);
+    };
+    this.videoMq.addEventListener('change', this.onVideoMq);
+
+    // В фоновой вкладке браузер откладывает автозапуск — повторяем, когда вкладку открыли.
+    this.onVideoVis = () => { if (!document.hidden && v.paused) this.playHeroVideo(v); };
+    document.addEventListener('visibilitychange', this.onVideoVis);
+
+    this.playHeroVideo(v);
+  }
+
+  playHeroVideo(v) {
+    // При prefers-reduced-motion видео скрыто и вместо него постер — decoder не будим.
+    if (this.reduced) { v.autoplay = false; v.removeAttribute('autoplay'); v.pause(); return; }
+    const p = v.play();
+    if (p && p.catch) p.catch(() => {});
+  }
+
+  initSaving() {
+    const node = this.savingNode && this.savingNode.current;
+    const text = (this.props.waterSaving || '').trim();
+    if (!node || !text || this.savingIo || this.reduced) return;
+    this.savingIo = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        this.countUp(node, text);
+        this.savingIo.disconnect();
+      });
+    }, { threshold: 0.3 });
+    this.savingIo.observe(node);
+  }
+
+  get reduced() { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+
+  applyHero() {
+    const h = this.props.heroHeight;
+    const el = this.hero && this.hero.current;
+    if (el && typeof h === 'number') el.style.height = h + 'vh';
+  }
+
+  initReveal() {
+    if (this.props.reveal === false || this.reduced) return;
+    const els = Array.from(document.querySelectorAll('[data-reveal]')).filter(el => !el.dataset.rv);
+    if (!els.length) return;
+    if (!this.io) {
+      this.io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (!e.isIntersecting) return;
+          const el = e.target;
+          const d = parseInt(el.dataset.delay || '0', 10);
+          setTimeout(() => { el.style.opacity = '1'; el.style.transform = 'none'; }, d);
+          this.io.unobserve(el);
+        });
+      }, { rootMargin: '0px 0px -10% 0px', threshold: 0.04 });
+    }
+    const vh = window.innerHeight;
+    els.forEach(el => {
+      el.dataset.rv = '1';
+      if (el.getBoundingClientRect().top < vh * 0.92) return;
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(24px)';
+      el.style.transition = 'opacity 600ms cubic-bezier(0.16,1,0.3,1), transform 600ms cubic-bezier(0.16,1,0.3,1)';
+      this.io.observe(el);
+    });
+  }
+
+  countUp(node, text) {
+    const m = String(text).match(/(\d+)/);
+    if (!node || !m || this.reduced) return;
+    const target = parseInt(m[1], 10);
+    const t0 = performance.now();
+    const step = now => {
+      const p = Math.min(1, (now - t0) / 1100);
+      const eased = 1 - Math.pow(1 - p, 3);
+      node.textContent = String(text).replace(m[1], String(Math.round(target * eased)));
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  setLang(code) { this.setState({ lang: code, note: code !== 'RU' }); }
+
+  renderVals() {
+    const s = this.state;
+    if (!this.hero) this.hero = React.createRef();
+    if (!this.savingNode) this.savingNode = React.createRef();
+    if (!this.heroVideo) this.heroVideo = React.createRef();
+    const saving = (this.props.waterSaving || '').trim();
+    const pill = code => ({
+      bg: s.lang === code ? 'var(--petrol)' : 'transparent',
+      fg: s.lang === code ? '#FFFFFF' : 'rgba(26,31,30,0.6)'
+    });
+    const ru = pill('RU'), kz = pill('KZ'), en = pill('EN');
+    const faqVals = {};
+    for (let i = 0; i < 5; i++) {
+      const open = s.faq === i;
+      faqVals['faq' + i] = () => this.setState({ faq: open ? -1 : i });
+      faqVals['e' + i] = open ? 'true' : 'false';
+      faqVals['h' + i] = open ? '360px' : '0px';
+      faqVals['r' + i] = open ? '45deg' : '0deg';
+    }
+    return Object.assign({
+      mobile: s.mobile,
+      desktop: !s.mobile,
+      menuOpen: s.menu ? 'true' : 'false',
+      menuHidden: s.menu ? 'false' : 'true',
+      menuPointer: s.menu ? 'auto' : 'none',
+      menuOpacity: s.menu ? '1' : '0',
+      menuTransform: s.menu ? 'translateX(0)' : 'translateX(105%)',
+      openMenu: () => this.setState({ menu: true }),
+      closeMenu: () => this.setState({ menu: false }),
+      setRu: () => this.setLang('RU'),
+      setKz: () => this.setLang('KZ'),
+      setEn: () => this.setLang('EN'),
+      isRu: s.lang === 'RU' ? 'true' : 'false',
+      isKz: s.lang === 'KZ' ? 'true' : 'false',
+      isEn: s.lang === 'EN' ? 'true' : 'false',
+      ruBg: ru.bg, ruFg: ru.fg, kzBg: kz.bg, kzFg: kz.fg, enBg: en.bg, enFg: en.fg,
+      showLangNote: s.note,
+      hideLangNote: () => this.setState({ note: false }),
+      heroRef: this.hero,
+      savingRef: this.savingNode,
+      heroVideoRef: this.heroVideo,
+      hasSaving: saving.length > 0,
+      savingText: saving,
+      sent: s.sent,
+      submit: e => {
+        e.preventDefault();
+        this.setState({ sent: true });
+      }
+    }, faqVals);
+  }
+}
+</script>
+</body>
+</html>
