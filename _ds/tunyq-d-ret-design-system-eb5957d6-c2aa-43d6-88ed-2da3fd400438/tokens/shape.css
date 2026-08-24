@@ -1,0 +1,19 @@
+:root{
+/* Spacing — generous whitespace; 8px base */
+--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:24px;--space-6:32px;--space-7:48px;--space-8:64px;--space-9:96px;--space-10:128px;
+/* Radii — soft droplet geometry */
+--radius-sm:10px;
+--radius-md:16px;
+--radius-lg:24px;
+--radius-xl:32px;
+--radius-pill:999px;
+--radius-droplet:32px 32px 32px 8px; /* one quiet corner, like a resting drop */
+/* Shadows — barely-there, cool-tinted */
+--shadow-card:0 1px 2px rgba(11,61,58,0.05),0 8px 24px rgba(11,61,58,0.07);
+--shadow-float:0 2px 6px rgba(11,61,58,0.06),0 16px 40px rgba(11,61,58,0.12);
+--shadow-none:none;
+/* Motion — still water: slow fades, no bounce */
+--ease-calm:cubic-bezier(0.25,0.1,0.25,1);
+--dur-quick:160ms;
+--dur-calm:320ms;
+}

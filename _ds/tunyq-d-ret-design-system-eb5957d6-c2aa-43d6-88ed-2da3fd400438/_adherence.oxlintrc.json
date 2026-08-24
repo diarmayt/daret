@@ -1,0 +1,198 @@
+{
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": []
+      }
+    ],
+    "no-restricted-imports": [
+      "warn",
+      {
+        "patterns": []
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color — use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/\\b\\d+px\\b/]",
+        "message": "Raw px value — use a design-system spacing token via var()."
+      },
+      {
+        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Montserrat|Inter))/i]",
+        "message": "Font not provided by the design system. Available: Montserrat, Inter."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/index.js"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ],
+  "x-omelette": {
+    "components": {},
+    "tokens": [
+      "--accent",
+      "--accent-hover",
+      "--accent-pressed",
+      "--border-hairline",
+      "--border-subtle",
+      "--dur-calm",
+      "--dur-quick",
+      "--ease-calm",
+      "--focus-ring",
+      "--font-body",
+      "--font-display",
+      "--ink",
+      "--ink-40",
+      "--ink-60",
+      "--leading-body",
+      "--leading-heading",
+      "--leading-tight",
+      "--mist",
+      "--mist-deep",
+      "--petrol",
+      "--petrol-08",
+      "--petrol-12",
+      "--petrol-deep",
+      "--petrol-soft",
+      "--radius-droplet",
+      "--radius-lg",
+      "--radius-md",
+      "--radius-pill",
+      "--radius-sm",
+      "--radius-xl",
+      "--shadow-card",
+      "--shadow-float",
+      "--shadow-none",
+      "--silver",
+      "--space-1",
+      "--space-10",
+      "--space-2",
+      "--space-3",
+      "--space-4",
+      "--space-5",
+      "--space-6",
+      "--space-7",
+      "--space-8",
+      "--space-9",
+      "--straw",
+      "--straw-soft",
+      "--surface-card",
+      "--surface-inverse",
+      "--surface-page",
+      "--surface-tint",
+      "--surface-warm",
+      "--text-body",
+      "--text-h1",
+      "--text-h2",
+      "--text-h3",
+      "--text-heading",
+      "--text-hero",
+      "--text-lg",
+      "--text-md",
+      "--text-muted",
+      "--text-on-inverse",
+      "--text-on-inverse-muted",
+      "--text-sm",
+      "--text-xs",
+      "--track-heading",
+      "--track-label",
+      "--weight-body",
+      "--weight-heading",
+      "--weight-medium",
+      "--white",
+      "--white-70"
+    ],
+    "tokenKinds": {
+      "--petrol": "color",
+      "--petrol-deep": "color",
+      "--petrol-soft": "color",
+      "--white": "color",
+      "--straw": "color",
+      "--straw-soft": "color",
+      "--mist": "color",
+      "--mist-deep": "color",
+      "--silver": "color",
+      "--ink": "color",
+      "--ink-60": "color",
+      "--ink-40": "color",
+      "--petrol-12": "color",
+      "--petrol-08": "color",
+      "--white-70": "color",
+      "--surface-page": "color",
+      "--surface-card": "color",
+      "--surface-tint": "color",
+      "--surface-warm": "color",
+      "--surface-inverse": "color",
+      "--text-heading": "font",
+      "--text-body": "font",
+      "--text-muted": "font",
+      "--text-on-inverse": "font",
+      "--text-on-inverse-muted": "font",
+      "--accent": "color",
+      "--accent-hover": "color",
+      "--accent-pressed": "color",
+      "--border-subtle": "color",
+      "--border-hairline": "color",
+      "--focus-ring": "color",
+      "--font-display": "font",
+      "--font-body": "font",
+      "--track-heading": "spacing",
+      "--track-label": "spacing",
+      "--text-hero": "font",
+      "--text-h1": "font",
+      "--text-h2": "font",
+      "--text-h3": "font",
+      "--text-lg": "font",
+      "--text-md": "font",
+      "--text-sm": "font",
+      "--text-xs": "font",
+      "--leading-tight": "font",
+      "--leading-heading": "font",
+      "--leading-body": "font",
+      "--weight-heading": "font",
+      "--weight-body": "font",
+      "--weight-medium": "font",
+      "--space-1": "spacing",
+      "--space-2": "spacing",
+      "--space-3": "spacing",
+      "--space-4": "spacing",
+      "--space-5": "spacing",
+      "--space-6": "spacing",
+      "--space-7": "spacing",
+      "--space-8": "spacing",
+      "--space-9": "spacing",
+      "--space-10": "spacing",
+      "--radius-sm": "radius",
+      "--radius-md": "radius",
+      "--radius-lg": "radius",
+      "--radius-xl": "radius",
+      "--radius-pill": "radius",
+      "--radius-droplet": "radius",
+      "--shadow-card": "shadow",
+      "--shadow-float": "shadow",
+      "--shadow-none": "shadow",
+      "--ease-calm": "other",
+      "--dur-quick": "other",
+      "--dur-calm": "other"
+    },
+    "fontFamilies": [
+      "Inter",
+      "Montserrat"
+    ]
+  }
+}
