@@ -39,20 +39,22 @@
   --ink-base:#1A1F1E;
   --paper:#FFFFFF;
 
-  /* Семантика светлой темы */
-  --canvas:var(--paper);
-  --canvas-alt:var(--petrol);
-  --ink:var(--ink-base);
-  --ink-heading:var(--petrol);
-  --ink-muted:#3E4644;
-  --ink-faint:#5F6B68;
-  --line:var(--mist-deep);
-  --card-bg:var(--paper);
-  --card-line:var(--mist-deep);
-  --btn-fill:var(--petrol);
-  --btn-fill-hover:var(--petrol-hover);
-  --btn-fill-text:var(--paper);
-  --btn-ghost-line:var(--mist-deep);
+  /* Единственная тема — тёмная. color-scheme красит и системные элементы:
+     полосу прокрутки, выпадающие списки, автозаполнение. */
+  color-scheme:dark;
+  --canvas:#0A1F1D;
+  --canvas-alt:var(--mist);
+  --ink:#E9E4D9;
+  --ink-heading:#E9E4D9;
+  --ink-muted:#C4D2CE;
+  --ink-faint:#9DB2AD;
+  --line:#22403B;
+  --card-bg:#12302C;
+  --card-line:#254742;
+  --btn-fill:var(--mint);
+  --btn-fill-hover:#9BD8C8;
+  --btn-fill-text:#062119;
+  --btn-ghost-line:#3A5B55;
 
   /* Шрифты */
   --font-sans:'Inter','Neue Haas Grotesk','Helvetica Neue',ui-sans-serif,system-ui,sans-serif;
@@ -68,39 +70,6 @@
   --r-btn:0px;
   --ease:cubic-bezier(0.25,0.1,0.25,1);
 }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --canvas:#0A1F1D;
-    --canvas-alt:var(--mist);
-    --ink:#E9E4D9;
-    --ink-heading:#E9E4D9;
-    --ink-muted:#C4D2CE;
-    --ink-faint:#9DB2AD;
-    --line:#22403B;
-    --card-bg:#12302C;
-    --card-line:#254742;
-    --btn-fill:var(--mint);
-    --btn-fill-hover:#9BD8C8;
-    --btn-fill-text:#062119;
-    --btn-ghost-line:#3A5B55;
-  }
-}
-:root[data-theme="dark"]{
-  --canvas:#0A1F1D;
-  --canvas-alt:var(--mist);
-  --ink:#E9E4D9;
-  --ink-heading:#E9E4D9;
-  --ink-muted:#C4D2CE;
-  --ink-faint:#9DB2AD;
-  --line:#22403B;
-  --card-bg:#12302C;
-  --card-line:#254742;
-  --btn-fill:var(--mint);
-  --btn-fill-hover:#9BD8C8;
-  --btn-fill-text:#062119;
-  --btn-ghost-line:#3A5B55;
-}
-
 /* ---------- база ---------- */
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
@@ -133,9 +102,12 @@ a{color:inherit;text-decoration:none}
   color:var(--ink);
 }
 /* Тёплая полоса — третий цвет бренда, солома. Текст остаётся петрольным. */
-.band--warm{background:var(--straw-soft);--line:#DCCFB6;--card-line:#DCCFB6;--card-bg:transparent}
-:root[data-theme="dark"] .band--warm,
-html:not([data-theme="light"]) .band--warm{background:#1B2E28;--line:#2E4239;--card-line:#2E4239}
+.band--warm{background:#1B2E28;--line:#2E4239;--card-line:#2E4239;--card-bg:transparent}
+/* Две подряд идущие полосы одного цвета давали 230px пустоты — их отступы
+   складывались, а границы между ними не было. Схлопываем и ставим линию. */
+.band + .band:not(.band--inv):not(.band--warm){padding-top:0}
+.band + .band:not(.band--inv):not(.band--warm) > .wrap{padding-top:64px;border-top:1px solid var(--line)}
+.band:not(.band--inv):not(.band--warm):has(+ .band:not(.band--inv):not(.band--warm)){padding-bottom:clamp(40px,4vw,56px)}
 section[id]{scroll-margin-top:88px}
 a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid currentColor;outline-offset:3px}
 
@@ -187,19 +159,6 @@ h3{font-size:clamp(22px,2vw,26px);font-weight:400;line-height:1.05;letter-spacin
   transition:color 200ms var(--ease),border-color 200ms var(--ease);
 }
 .icon-btn:hover{color:var(--ink);border-color:currentColor}
-.theme-toggle .i-sun{display:none}
-.on-dark{display:none}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]) .theme-toggle .i-sun{display:block}
-  :root:not([data-theme="light"]) .theme-toggle .i-moon{display:none}
-  :root:not([data-theme="light"]) .on-dark{display:block}
-  :root:not([data-theme="light"]) .on-light{display:none}
-}
-:root[data-theme="dark"] .theme-toggle .i-sun{display:block}
-:root[data-theme="dark"] .theme-toggle .i-moon{display:none}
-:root[data-theme="dark"] .on-dark{display:block}
-:root[data-theme="dark"] .on-light{display:none}
-
 /* Мобильное меню на <details> — без JS */
 .menu{display:none;position:relative;margin-left:auto}
 .menu summary{list-style:none;width:40px;height:40px;display:grid;place-items:center;cursor:pointer;border:1px solid var(--btn-ghost-line);color:var(--ink-muted)}
@@ -223,7 +182,7 @@ h3{font-size:clamp(22px,2vw,26px);font-weight:400;line-height:1.05;letter-spacin
 .hero-scrim{position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(to top,rgba(7,43,41,0.90) 0%,rgba(7,43,41,0.62) 38%,rgba(7,43,41,0.32) 70%,rgba(7,43,41,0.36) 100%)}
 .hero-inner{position:relative;z-index:1;width:100%;padding-top:120px;padding-bottom:clamp(48px,6vw,80px);color:var(--paper)}
-.hero .display{color:var(--paper);max-width:14ch}
+.hero .display{color:var(--paper);max-width:16ch}
 .hero .label{color:var(--mist)}
 .hero-lead{margin-top:28px;max-width:44ch;font-size:16px;line-height:1.4;color:var(--mist)}
 .hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:40px}
@@ -256,6 +215,51 @@ h3{font-size:clamp(22px,2vw,26px);font-weight:400;line-height:1.05;letter-spacin
 .figure--empty{display:grid;place-items:center;border:1px dashed var(--card-line);background:transparent}
 .figure--empty img{display:none}
 .figure--empty::after{content:attr(data-shot);font-size:14px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-faint);text-align:center;padding:24px}
+
+/* ---------- «Где им пользуются»: список сцен + крупный кадр ----------
+   Раскладка повторяет «Как это работает»: номер, заголовок и описание
+   в левой колонке, кадр справа. Разница в том, что строки кликабельны
+   и переключают кадр. Кадр тянется на высоту колонки, поэтому низ
+   картинки всегда совпадает с последней строкой. */
+.uses{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(32px,4vw,64px);align-items:stretch}
+.uses-tabs{display:grid;grid-auto-rows:min-content;border-top:1px solid var(--line)}
+.uses-tab{
+  position:relative;display:grid;grid-template-columns:64px 1fr;gap:0 16px;align-items:start;
+  padding:26px 0;background:transparent;border:0;border-bottom:1px solid var(--line);
+  font:inherit;text-align:left;cursor:pointer;transition:opacity 220ms var(--ease);
+}
+.uses-tab .n{font-size:14px;font-weight:500;letter-spacing:0.08em;color:var(--ink-faint);
+  padding-top:6px;font-variant-numeric:tabular-nums;transition:color 220ms var(--ease)}
+.uses-tab-title{display:block;font-size:clamp(22px,2vw,26px);font-weight:400;line-height:1.05;
+  letter-spacing:-0.02em;color:var(--ink-faint);transition:color 220ms var(--ease)}
+.uses-tab-text{display:block;margin-top:10px;font-size:15px;line-height:1.4;
+  color:var(--ink-faint);opacity:0.75;transition:color 220ms var(--ease),opacity 220ms var(--ease)}
+.uses-tab:hover .uses-tab-title{color:var(--ink)}
+.uses-tab[aria-selected="true"] .n{color:var(--ink)}
+.uses-tab[aria-selected="true"] .uses-tab-title{color:var(--ink)}
+.uses-tab[aria-selected="true"] .uses-tab-text{color:var(--ink-muted);opacity:1}
+/* Полоса автопрокрутки — единственный индикатор времени, тени система не разрешает */
+.uses-bar{position:absolute;left:0;bottom:-1px;height:2px;width:0;background:var(--ink);opacity:0}
+.uses-tab[aria-selected="true"] .uses-bar{opacity:1}
+
+.uses-stage{position:relative;display:grid;border-radius:var(--r-card);overflow:hidden}
+.uses-panel{grid-area:1/1;display:grid;opacity:0;visibility:hidden;transform:scale(1.03);
+  transition:opacity 460ms var(--ease),transform 700ms var(--ease),visibility 0s linear 460ms}
+.uses-panel.is-active{opacity:1;visibility:visible;transform:none;transition-delay:0s}
+.uses-media{height:100%;border-radius:0}
+.uses-media img{height:100%}
+
+@media (max-width:860px){
+  .uses{grid-template-columns:1fr;gap:24px}
+  .uses-stage{order:-1;aspect-ratio:4/3}
+  .uses-tab{padding:20px 0;grid-template-columns:44px 1fr}
+  .uses-tab .n{font-size:13px}
+  .uses-tab-text{font-size:15px}
+}
+@media (prefers-reduced-motion: reduce){
+  .uses-panel{transition:none;transform:none}
+  .uses-bar{display:none}
+}
 
 /* ---------- сцены ---------- */
 .scene{position:relative;overflow:hidden;border-radius:var(--r-card);aspect-ratio:3/4;background:var(--card-line)}
@@ -290,6 +294,7 @@ h3{font-size:clamp(22px,2vw,26px);font-weight:400;line-height:1.05;letter-spacin
 .step{display:grid;grid-template-columns:72px 1fr;gap:0 16px;padding:28px 0;border-bottom:1px solid var(--line)}
 .step .num{font-size:14px;font-weight:500;letter-spacing:0.08em;color:var(--ink-faint);padding-top:4px}
 .step p{grid-column:2;margin-top:10px;color:var(--ink-muted);font-size:15px;line-height:1.4}
+.step p .em{font-weight:500;color:var(--ink)}
 
 /* ---------- расход воды ---------- */
 .bars{display:grid;gap:28px;max-width:560px}
@@ -376,10 +381,8 @@ h3{font-size:clamp(22px,2vw,26px);font-weight:400;line-height:1.05;letter-spacin
 <header class="topbar">
   <div class="wrap">
     <a class="brand" href="#top" aria-label="DÄRET by SAUAPKER — на главную">
-      <img class="on-light" src="assets/daret-logo-mark.svg" alt="" width="24" height="38" style="height:30px">
-      <img class="on-dark" src="assets/daret-logo-mark-white.svg" alt="" width="24" height="38" style="height:30px">
-      <img class="on-light" src="assets/daret-wordmark.svg" alt="" width="79" height="15" style="height:13px">
-      <img class="on-dark" src="assets/daret-wordmark-white.svg" alt="" width="79" height="15" style="height:13px">
+      <img src="assets/daret-logo-mark-white.svg" alt="" width="24" height="38" style="height:30px">
+      <img src="assets/daret-wordmark-white.svg" alt="" width="79" height="15" style="height:13px">
     </a>
     <nav class="navlinks">
       <a href="#how">Как работает</a>
@@ -399,10 +402,6 @@ h3{font-size:clamp(22px,2vw,26px);font-weight:400;line-height:1.05;letter-spacin
         <a href="#order">Заказать</a>
       </nav>
     </details>
-    <button class="icon-btn theme-toggle" type="button" id="themeToggle" aria-label="Переключить тему">
-      <svg class="i-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>
-      <svg class="i-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
-    </button>
     <a class="btn btn-fill" href="#order">Заказать</a>
   </div>
 </header>
@@ -421,8 +420,8 @@ h3{font-size:clamp(22px,2vw,26px);font-weight:400;line-height:1.05;letter-spacin
   </div>
   <div class="hero-inner wrap">
     <p class="label">DÄRET by SAUAPKER</p>
-    <h1 class="display" style="margin-top:24px">Омовение там, где нет крана</h1>
-    <p class="hero-lead">Портативный бесконтактный дозатор. Подносите руки — вода идёт через 0,25 секунды. Убираете — останавливается. 420 мл хватает на полное омовение.</p>
+    <h1 class="display" style="margin-top:24px">«DÄRET — омовение всегда рядом»</h1>
+    <p class="hero-lead">Портативное устройство для совершения омовения перед намазом. Возьмите DÄRET с собой — в дорогу, на работу, в машину или на природу.</p>
     <div class="hero-cta">
       <a class="btn btn-fill" href="#order">Заказать DÄRET</a>
       <a class="btn btn-ghost" href="#how">Как это работает</a>
@@ -529,14 +528,14 @@ h3{font-size:clamp(22px,2vw,26px);font-weight:400;line-height:1.05;letter-spacin
   <div class="wrap">
     <div class="shead" data-reveal>
       <p class="label">Как это работает</p>
-      <h2 style="margin-top:16px">Четыре шага, дальше — только вода</h2>
+      <h2 style="margin-top:16px">Четыре простых шага — и устройство готово к омовению</h2>
     </div>
     <div class="grid g2 gap-lg" style="align-items:start">
       <div class="steps" data-reveal>
-        <div class="step"><span class="num">01</span><h3>Залейте 420 мл воды</h3><p>Крышка снимается одним движением. Подойдёт любая чистая вода.</p></div>
-        <div class="step"><span class="num">02</span><h3>Поставьте или закрепите</h3><p>На раковину, полку, капот, стол. В комплекте — клейкое настенное крепление.</p></div>
-        <div class="step"><span class="num">03</span><h3>Поднесите руки к датчику</h3><p>Дистанция до 6 см, отклик 0,25 секунды. Вода идёт ровной струёй.</p></div>
-        <div class="step"><span class="num">04</span><h3>Уберите руки — подача стоит</h3><p>Ни одной лишней капли между этапами омовения.</p></div>
+        <div class="step"><span class="num">01</span><h3>Наполните резервуар</h3><p>Залейте до <span class="em">420 мл чистой воды</span>. Крышка легко снимается для быстрого наполнения.</p></div>
+        <div class="step"><span class="num">02</span><h3>Установите устройство</h3><p>Разместите его на раковине, полке, столе или другой подходящей поверхности. Для стационарного размещения предусмотрено <span class="em">крепление на клейкой основе</span>.</p></div>
+        <div class="step"><span class="num">03</span><h3>Поднесите руки к датчику</h3><p>Инфракрасный датчик реагирует на движение рук на расстоянии до <span class="em">6 см</span> с откликом <span class="em">0,25 секунды</span>. Вода подаётся автоматически ровным потоком.</p></div>
+        <div class="step"><span class="num">04</span><h3>Уберите руки — подача прекращается</h3><p>Как только руки отведены от датчика, подача воды останавливается. Это позволяет контролировать расход воды и поддерживать аккуратность во время омовения.</p></div>
       </div>
       <div class="figure" data-reveal style="aspect-ratio:3/4">
         <img src="assets/daret-water-stream.webp" width="2752" height="1536" loading="lazy" alt="Ровная струя воды из сопла дозатора DÄRET">
@@ -571,8 +570,8 @@ h3{font-size:clamp(22px,2vw,26px);font-weight:400;line-height:1.05;letter-spacin
   <div class="wrap">
     <div class="shead center" data-reveal>
       <p class="label">Исполнения</p>
-      <h2>Два цвета</h2>
-      <p class="lead">Минималистичный корпус, который не выбивается из интерьера ванной — и хорошо смотрится как подарок.</p>
+      <h2>Два цвета — один универсальный дизайн</h2>
+      <p class="lead">Минималистичный корпус гармонично вписывается в современный интерьер и остаётся уместным в любом пространстве. Два сдержанных цветовых решения позволяют выбрать вариант под свой стиль.</p>
     </div>
     <div class="grid g2">
       <div data-reveal>
@@ -597,22 +596,54 @@ h3{font-size:clamp(22px,2vw,26px);font-weight:400;line-height:1.05;letter-spacin
       <p class="label">Где им пользуются</p>
       <h2 data-scroll-chars style="margin-top:16px">Намаз не ждёт удобного места</h2>
     </div>
-    <div class="grid g4">
-      <div class="scene" data-reveal>
-        <img src="assets/daret-travel-car.webp" loading="lazy" alt="DÄRET в багажнике автомобиля на трассе">
-        <div class="cap"><h3>В дороге</h3><p>Багажник, заправка, обочина трассы.</p><span class="arrow" aria-hidden="true">→</span></div>
+    <div class="uses" id="uses" data-reveal>
+      <div class="uses-tabs" role="tablist" aria-orientation="vertical" aria-label="Где пользуются DÄRET">
+        <button class="uses-tab" type="button" role="tab" id="use-tab-0" aria-controls="use-panel-0" aria-selected="true">
+          <span class="n">01</span>
+          <span>
+            <span class="uses-tab-title">В дороге</span>
+            <span class="uses-tab-text">Багажник, заправка, обочина трассы — вода есть там, где вы остановились.</span>
+          </span>
+          <span class="uses-bar" aria-hidden="true"></span>
+        </button>
+        <button class="uses-tab" type="button" role="tab" id="use-tab-1" aria-controls="use-panel-1" aria-selected="false" tabindex="-1">
+          <span class="n">02</span>
+          <span>
+            <span class="uses-tab-title">На природе</span>
+            <span class="uses-tab-text">Поездка за город, кемпинг, дача — намаз не привязан к дому.</span>
+          </span>
+          <span class="uses-bar" aria-hidden="true"></span>
+        </button>
+        <button class="uses-tab" type="button" role="tab" id="use-tab-2" aria-controls="use-panel-2" aria-selected="false" tabindex="-1">
+          <span class="n">03</span>
+          <span>
+            <span class="uses-tab-title">В офисе</span>
+            <span class="uses-tab-text">Стоит на столе или в шкафу и не привлекает внимания.</span>
+          </span>
+          <span class="uses-bar" aria-hidden="true"></span>
+        </button>
+        <button class="uses-tab" type="button" role="tab" id="use-tab-3" aria-controls="use-panel-3" aria-selected="false" tabindex="-1">
+          <span class="n">04</span>
+          <span>
+            <span class="uses-tab-title">Дома</span>
+            <span class="uses-tab-text">Крепится на стену рядом с раковиной — без сверления и инструментов.</span>
+          </span>
+          <span class="uses-bar" aria-hidden="true"></span>
+        </button>
       </div>
-      <div class="scene" data-reveal data-shot="Кадр 2">
-        <img src="assets/gen/daret-scene-nature.webp" loading="lazy" alt="DÄRET на природе — поездка за город">
-        <div class="cap"><h3>На природе</h3><p>Поездка за город, кемпинг, дача.</p><span class="arrow" aria-hidden="true">→</span></div>
-      </div>
-      <div class="scene" data-reveal data-shot="Кадр 3">
-        <img src="assets/gen/daret-scene-office.webp" loading="lazy" alt="DÄRET на офисном столе">
-        <div class="cap"><h3>В офисе</h3><p>Стоит на столе или в шкафу, не привлекая внимания.</p><span class="arrow" aria-hidden="true">→</span></div>
-      </div>
-      <div class="scene" data-reveal data-shot="Кадр 4">
-        <img src="assets/gen/daret-scene-home.webp" loading="lazy" alt="DÄRET на стене рядом с раковиной">
-        <div class="cap"><h3>Дома</h3><p>Крепится на стену рядом с раковиной.</p><span class="arrow" aria-hidden="true">→</span></div>
+      <div class="uses-stage">
+        <div class="uses-panel is-active" role="tabpanel" id="use-panel-0" aria-labelledby="use-tab-0">
+          <div class="figure uses-media"><img src="assets/daret-travel-car.webp" loading="lazy" alt="DÄRET в багажнике автомобиля на трассе"></div>
+        </div>
+        <div class="uses-panel" role="tabpanel" id="use-panel-1" aria-labelledby="use-tab-1">
+          <div class="figure uses-media"><img src="assets/gen/daret-scene-nature.webp" loading="lazy" alt="DÄRET на природе — поездка за город"></div>
+        </div>
+        <div class="uses-panel" role="tabpanel" id="use-panel-2" aria-labelledby="use-tab-2">
+          <div class="figure uses-media"><img src="assets/gen/daret-scene-office.webp" loading="lazy" alt="DÄRET на офисном столе"></div>
+        </div>
+        <div class="uses-panel" role="tabpanel" id="use-panel-3" aria-labelledby="use-tab-3">
+          <div class="figure uses-media"><img src="assets/gen/daret-scene-home.webp" loading="lazy" alt="DÄRET на стене рядом с раковиной"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -726,10 +757,8 @@ h3{font-size:clamp(22px,2vw,26px);font-weight:400;line-height:1.05;letter-spacin
     <div class="cols">
       <div>
         <a class="brand" href="#top" aria-label="DÄRET by SAUAPKER">
-          <img class="on-light" src="assets/daret-logo-mark.svg" alt="" width="24" height="38" style="height:28px">
-          <img class="on-dark" src="assets/daret-logo-mark-white.svg" alt="" width="24" height="38" style="height:28px">
-          <img class="on-light" src="assets/daret-wordmark.svg" alt="" width="79" height="15" style="height:12px">
-          <img class="on-dark" src="assets/daret-wordmark-white.svg" alt="" width="79" height="15" style="height:12px">
+          <img src="assets/daret-logo-mark-white.svg" alt="" width="24" height="38" style="height:28px">
+          <img src="assets/daret-wordmark-white.svg" alt="" width="79" height="15" style="height:12px">
         </a>
         <p class="small" style="margin-top:20px;max-width:28em;color:var(--ink-faint)">Портативный бесконтактный дозатор для омовения. Бренд SAUAPKER, Алматы, Казахстан.</p>
       </div>
@@ -759,24 +788,6 @@ h3{font-size:clamp(22px,2vw,26px);font-weight:400;line-height:1.05;letter-spacin
 (function(){
   'use strict';
   var root = document.documentElement;
-
-  /* ---------- тема: системная / light / dark ---------- */
-  var KEY = 'daret-theme', saved = null;
-  try { saved = localStorage.getItem(KEY); } catch (e) {}
-  if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
-
-  function currentTheme(){
-    var a = root.getAttribute('data-theme');
-    if (a) return a;
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  }
-  var toggle = document.getElementById('themeToggle');
-  if (toggle) toggle.addEventListener('click', function(){
-    var next = currentTheme() === 'dark' ? 'light' : 'dark';
-    root.setAttribute('data-theme', next);
-    try { localStorage.setItem(KEY, next); } catch (e) {}
-  });
-
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ---------- фоновое видео ----------
@@ -963,6 +974,71 @@ h3{font-size:clamp(22px,2vw,26px);font-weight:400;line-height:1.05;letter-spacin
       });
     });
   }
+
+  /* ---------- «Где им пользуются»: вкладки с автопрокруткой ----------
+     Один rAF-цикл ведёт и полосу прогресса, и переключение — так они не
+     разъезжаются. Пауза при наведении, фокусе и когда блок вне экрана. */
+  (function(){
+    var root = document.getElementById('uses');
+    if (!root) return;
+    var tabs = [].slice.call(root.querySelectorAll('[role="tab"]'));
+    var panels = [].slice.call(root.querySelectorAll('[role="tabpanel"]'));
+    var bars = [].slice.call(root.querySelectorAll('.uses-bar'));
+    if (!tabs.length) return;
+
+    var DURATION = 6000;
+    var current = 0, started = 0, paused = false, visible = false, frame = 0;
+
+    function show(next, byUser){
+      if (next === current) return;
+      tabs[current].setAttribute('aria-selected', 'false');
+      tabs[current].tabIndex = -1;
+      panels[current].classList.remove('is-active');
+      bars[current].style.width = '0%';
+      current = next;
+      tabs[current].setAttribute('aria-selected', 'true');
+      tabs[current].tabIndex = 0;
+      panels[current].classList.add('is-active');
+      started = 0;
+      if (byUser) tabs[current].focus();
+    }
+
+    function tick(ts){
+      frame = 0;
+      if (reduced || !visible || paused) { started = 0; return; }
+      if (!started) started = ts;
+      var p = (ts - started) / DURATION;
+      if (p >= 1) { show((current + 1) % tabs.length); }
+      else { bars[current].style.width = (p * 100).toFixed(2) + '%'; }
+      frame = requestAnimationFrame(tick);
+    }
+    function play(){ if (!frame && !reduced) frame = requestAnimationFrame(tick); }
+    function pause(on){ paused = on; if (on) { started = 0; bars[current].style.width = '0%'; } else play(); }
+
+    tabs.forEach(function(tab, i){
+      tab.addEventListener('click', function(){ show(i); pause(false); });
+      tab.addEventListener('keydown', function(e){
+        var step = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1
+                 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0;
+        if (!step) return;
+        e.preventDefault();
+        show((current + step + tabs.length) % tabs.length, true);
+      });
+    });
+    root.addEventListener('pointerenter', function(){ pause(true); });
+    root.addEventListener('pointerleave', function(){ pause(false); });
+    root.addEventListener('focusin', function(){ pause(true); });
+    root.addEventListener('focusout', function(e){
+      if (!root.contains(e.relatedTarget)) pause(false);
+    });
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function(entries){
+        visible = entries[0].isIntersecting;
+        if (visible) play(); else started = 0;
+      }, { threshold: 0.25 }).observe(root);
+    } else { visible = true; play(); }
+  })();
 
   /* ---------- мобильное меню ---------- */
   var menu = document.querySelector('.menu');
