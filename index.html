@@ -117,7 +117,6 @@ h1,h2,h3,h4{margin:0;font-family:var(--font-sans);color:var(--ink-heading,var(--
 .display{font-size:clamp(40px,6.6vw,72px);font-weight:300;line-height:0.93;letter-spacing:-0.06em}
 h2{font-size:clamp(30px,3.6vw,40px);font-weight:400;line-height:1;letter-spacing:-0.035em}
 h3{font-size:clamp(22px,2vw,26px);font-weight:400;line-height:1.05;letter-spacing:-0.02em}
-.serif{font-family:var(--font-serif);font-weight:400;letter-spacing:-0.02em;font-size:26px;line-height:1.1}
 .lead{font-size:16px;line-height:1.4;max-width:34em;color:var(--ink-muted)}
 .small{font-size:15px;line-height:1.4;color:var(--ink-muted)}
 .label{font-size:14px;font-weight:500;line-height:1;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-faint)}
@@ -153,12 +152,6 @@ h3{font-size:clamp(22px,2vw,26px);font-weight:400;line-height:1.05;letter-spacin
 .navlinks{display:flex;gap:28px;margin-left:auto;font-size:15px;color:var(--ink-muted)}
 .navlinks a:hover{color:var(--ink)}
 .topbar .btn{padding:13px 24px}
-.icon-btn{
-  width:40px;height:40px;flex:0 0 auto;display:grid;place-items:center;cursor:pointer;
-  border-radius:var(--r-btn);border:1px solid var(--btn-ghost-line);background:transparent;color:var(--ink-muted);
-  transition:color 200ms var(--ease),border-color 200ms var(--ease);
-}
-.icon-btn:hover{color:var(--ink);border-color:currentColor}
 /* Мобильное меню на <details> — без JS */
 .menu{display:none;position:relative;margin-left:auto}
 .menu summary{list-style:none;width:40px;height:40px;display:grid;place-items:center;cursor:pointer;border:1px solid var(--btn-ghost-line);color:var(--ink-muted)}
@@ -201,7 +194,6 @@ h3{font-size:clamp(22px,2vw,26px);font-weight:400;line-height:1.05;letter-spacin
 .grid{display:grid;gap:clamp(16px,1.6vw,24px)}
 .g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))}
 .g3{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
-.g4{grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
 .gap-lg{gap:clamp(32px,4vw,64px)}
 /* Карточки: 8px, без теней — глубина берётся из контраста с полотном */
 .card{background:var(--card-bg);border:1px solid var(--card-line);border-radius:var(--r-card);padding:var(--pad-card)}
@@ -251,7 +243,7 @@ h3{font-size:clamp(22px,2vw,26px);font-weight:400;line-height:1.05;letter-spacin
 
 @media (max-width:860px){
   .uses{grid-template-columns:1fr;gap:24px}
-  .uses-stage{order:-1;aspect-ratio:4/3}
+  .uses-stage{order:-1;aspect-ratio:3/4}   /* кадры сцен вертикальные, 896×1200 */
   .uses-tab{padding:20px 0;grid-template-columns:44px 1fr}
   .uses-tab .n{font-size:13px}
   .uses-tab-text{font-size:15px}
@@ -260,19 +252,6 @@ h3{font-size:clamp(22px,2vw,26px);font-weight:400;line-height:1.05;letter-spacin
   .uses-panel{transition:none;transform:none}
   .uses-bar{display:none}
 }
-
-/* ---------- сцены ---------- */
-.scene{position:relative;overflow:hidden;border-radius:var(--r-card);aspect-ratio:3/4;background:var(--card-line)}
-.scene img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.scene .cap{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding:28px;
-  background:linear-gradient(to top,rgba(7,43,41,0.90) 0%,rgba(7,43,41,0.38) 52%,rgba(7,43,41,0) 100%)}
-.scene .cap h3{color:var(--paper)}
-.scene .cap p{color:var(--mist);font-size:15px;line-height:1.4;margin-top:8px}
-.scene .cap .arrow{margin-top:18px;font-size:20px;line-height:1;color:var(--paper)}
-.scene--empty{border:1px dashed var(--card-line);background:transparent}
-.scene--empty img{display:none}
-.scene--empty .cap{background:none}
-.scene--empty .cap h3,.scene--empty .cap p,.scene--empty .cap .arrow{color:var(--ink-faint)}
 
 /* ---------- цитата ---------- */
 /* Хадис: сверху арабский оригинал, под ним перевод.
@@ -295,14 +274,6 @@ h3{font-size:clamp(22px,2vw,26px);font-weight:400;line-height:1.05;letter-spacin
 .step .num{font-size:14px;font-weight:500;letter-spacing:0.08em;color:var(--ink-faint);padding-top:4px}
 .step p{grid-column:2;margin-top:10px;color:var(--ink-muted);font-size:15px;line-height:1.4}
 .step p .em{font-weight:500;color:var(--ink)}
-
-/* ---------- расход воды ---------- */
-.bars{display:grid;gap:28px;max-width:560px}
-.bar-head{display:flex;justify-content:space-between;align-items:baseline;font-size:15px;color:var(--ink-muted);margin-bottom:10px}
-.bar-head b{font-weight:500;color:var(--ink);font-size:20px;letter-spacing:-0.01em}
-.bar{height:2px;background:var(--line)}
-.bar i{display:block;height:100%;background:var(--ink)}
-.bar-row--tap .bar i{background:var(--ink-faint)}
 
 /* ---------- характеристики ---------- */
 .specs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:0 64px}
@@ -443,82 +414,31 @@ h3{font-size:clamp(22px,2vw,26px);font-weight:400;line-height:1.05;letter-spacin
   </div>
 </section>
 
-<!-- ================= ПРОБЛЕМА (светлая полоса, центр) ================= -->
+<!-- ================= БЕЗ КОМПРОМИССОВ ================= -->
 <section class="band">
   <div class="wrap">
     <div class="shead center" data-reveal>
-      <p class="label">Знакомая ситуация</p>
-      <h2>Бутылка неудобна.<br>Кран расточителен.</h2>
-      <p class="lead">Совершить омовение вне мечети — почти всегда компромисс. Вот три причины, по которым это неудобно.</p>
+      <p class="label">Почему DÄRET</p>
+      <h2>Омовение без компромиссов</h2>
+      <p class="lead">Омовение должно быть простым, аккуратным и комфортным — независимо от того, где вы находитесь.</p>
     </div>
-    <div class="grid g3">
+    <div class="grid g2">
       <div class="card" data-reveal>
-        <p class="label">Бутылка</p>
-        <h3>Её нужно держать и наклонять</h3>
-        <p>Одной рукой лить воду на другую почти невозможно. Вода проливается мимо, а бутылку некуда поставить.</p>
-      </div>
-      <div class="card" data-reveal>
-        <p class="label">Кран</p>
-        <h3>Он течёт всё омовение</h3>
-        <p>Кран открывают и закрывают мокрыми руками, поэтому его оставляют открытым. Уходит примерно вдвое больше воды, чем нужно.</p>
+        <h3>Продуманная подача воды</h3>
+        <p>Удобная конструкция позволяет контролировать поток одной рукой и направлять воду именно туда, куда необходимо. Без лишних движений и потерь воды.</p>
       </div>
       <div class="card" data-reveal>
-        <p class="label">В дороге</p>
-        <h3>Крана может не быть вообще</h3>
-        <p>В машине, на трассе, в офисе, в поездке. Время намаза наступает независимо от того, есть ли рядом умывальник.</p>
+        <h3>Рациональный расход воды</h3>
+        <p>Вода подаётся дозированно, поэтому её расход остаётся минимальным. Вы используете ровно столько воды, сколько необходимо для омовения.</p>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= РЕШЕНИЕ (инверсная полоса, лево) ================= -->
-<section class="band band--inv">
-  <div class="wrap grid g2 gap-lg" style="align-items:center">
-    <div data-reveal>
-      <p class="label">Решение</p>
-      <h2 style="margin-top:20px">DÄRET стоит сам.<br>Руки остаются свободными.</h2>
-      <p class="lead" style="margin-top:24px">Датчик на носике реагирует на движение с расстояния до 6 см. Вода идёт ровной струёй ровно столько, сколько вы держите руки — и ни секундой дольше.</p>
-    </div>
-    <div class="figure" data-reveal style="aspect-ratio:16/10">
-      <img src="assets/daret-hand-sensor.webp" width="2752" height="1536" loading="lazy" alt="Рука под датчиком DÄRET, вода идёт ровной струёй">
-    </div>
-  </div>
-</section>
-
-<!-- ================= ЧЕТЫРЕ ПРЕИМУЩЕСТВА ================= -->
-<section class="band">
-  <div class="wrap">
-    <div class="shead center" data-reveal>
-      <p class="label">Что это даёт</p>
-      <h2>Четыре вещи, ради которых его берут</h2>
-    </div>
-    <div class="grid g4">
-      <div class="card" data-reveal><h3>Вдвое меньше воды</h3><p>420 мл на полное омовение против примерно литра из открытого крана.</p></div>
-      <div class="card" data-reveal><h3>Обе руки свободны</h3><p>Дозатор стоит на поверхности или висит на стене. Держать ничего не нужно.</p></div>
-      <div class="card" data-reveal><h3>293 г и 21 см</h3><p>Помещается в бардачок, рюкзак и чемодан. Заряжается от того же USB-C, что и телефон.</p></div>
-      <div class="card" data-reveal><h3>Ничего не касаетесь</h3><p>Мокрыми руками не нужно трогать корпус, кнопки или кран. Корпус защищён по стандарту IPX5.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= ЭКОНОМИЯ ================= -->
-<section class="band">
-  <div class="wrap grid g2 gap-lg" style="align-items:center">
-    <div data-reveal>
-      <p class="label">Экономия</p>
-      <h2 style="margin-top:20px">420 мл вместо литра</h2>
-      <p class="lead" style="margin-top:24px">Резервуара хватает на полное омовение. Открытый кран за то же время расходует примерно вдвое больше — просто потому, что его не закрывают мокрыми руками.</p>
-    </div>
-    <div class="bars" data-reveal>
-      <div class="bar-row bar-row--tap">
-        <div class="bar-head"><span>Открытый кран</span><b>≈ 1000 мл</b></div>
-        <div class="bar"><i style="width:100%"></i></div>
+      <div class="card" data-reveal>
+        <h3>Всегда под рукой</h3>
+        <p>Компактный формат позволяет взять устройство с собой в мечеть, автомобиль, офис или поездку. Для омовения больше не требуется искать подходящий кран или умывальник.</p>
       </div>
-      <div class="bar-row">
-        <div class="bar-head"><span>DÄRET</span><b>420 мл</b></div>
-        <div class="bar"><i style="width:42%"></i></div>
+      <div class="card" data-reveal>
+        <h3>Комфорт в каждом использовании</h3>
+        <p>Никаких мокрых поверхностей, неудобных положений бутылки или необходимости постоянно открывать и закрывать кран. Всё необходимое для омовения — в одном продуманном устройстве.</p>
       </div>
-      <p class="formnote">Оценка расхода открытого крана — усреднённая; фактический расход зависит от напора.</p>
     </div>
   </div>
 </section>
@@ -633,10 +553,10 @@ h3{font-size:clamp(22px,2vw,26px);font-weight:400;line-height:1.05;letter-spacin
       </div>
       <div class="uses-stage">
         <div class="uses-panel is-active" role="tabpanel" id="use-panel-0" aria-labelledby="use-tab-0">
-          <div class="figure uses-media"><img src="assets/daret-travel-car.webp" loading="lazy" alt="DÄRET в багажнике автомобиля на трассе"></div>
+          <div class="figure uses-media"><img src="assets/gen/daret-scene-road.webp" loading="lazy" alt="DÄRET в багажнике автомобиля на трассе"></div>
         </div>
         <div class="uses-panel" role="tabpanel" id="use-panel-1" aria-labelledby="use-tab-1">
-          <div class="figure uses-media"><img src="assets/gen/daret-scene-nature.webp" loading="lazy" alt="DÄRET на природе — поездка за город"></div>
+          <div class="figure uses-media"><img src="assets/gen/daret-scene-nature.jpg" loading="lazy" alt="DÄRET на природе — поездка за город"></div>
         </div>
         <div class="uses-panel" role="tabpanel" id="use-panel-2" aria-labelledby="use-tab-2">
           <div class="figure uses-media"><img src="assets/gen/daret-scene-office.webp" loading="lazy" alt="DÄRET на офисном столе"></div>
@@ -813,11 +733,10 @@ h3{font-size:clamp(22px,2vw,26px);font-weight:400;line-height:1.05;letter-spacin
   }
 
   /* ---------- слоты под несгенерированные кадры ---------- */
-  Array.prototype.forEach.call(document.querySelectorAll('.figure img, .scene img'), function(img){
+  Array.prototype.forEach.call(document.querySelectorAll('.figure img'), function(img){
     img.addEventListener('error', function(){
-      var box = img.closest('.scene') || img.closest('.figure');
-      if (!box) return;
-      box.classList.add(box.classList.contains('scene') ? 'scene--empty' : 'figure--empty');
+      var box = img.closest('.figure');
+      if (box) box.classList.add('figure--empty');
     });
     if (img.complete && img.naturalWidth === 0) img.dispatchEvent(new Event('error'));
   });
@@ -868,11 +787,7 @@ h3{font-size:clamp(22px,2vw,26px);font-weight:400;line-height:1.05;letter-spacin
     });
     el.textContent = '';
     el.appendChild(frag);
-    scrollChars.push({
-      el: el, chars: chars, d: [],
-      hero: el.hasAttribute('data-scroll-hero'),
-      stage: el.closest('.hero')
-    });
+    scrollChars.push({ el: el, chars: chars, d: [] });
   });
 
   // Многострочный заголовок разлетается построчно: буквы сходятся к центру
@@ -894,29 +809,18 @@ h3{font-size:clamp(22px,2vw,26px);font-weight:400;line-height:1.05;letter-spacin
   }
   function measureAll(){ scrollChars.forEach(measureLines); }
 
-  // Заголовку hero некуда «входить снизу»: он собирается при загрузке,
-  // а разлетается обратно, когда первый экран уезжает вверх.
-  var heroK = 1, entranceStart = 0;
 
   function paintScrollChars(){
     var vh = window.innerHeight;
     var spread = Math.min(340, window.innerWidth * 0.34);
-    var scrolled = window.pageYOffset || document.documentElement.scrollTop || 0;
     scrollChars.forEach(function(group){
-      var k;
-      if (group.hero) {
-        var range = Math.max(1, (group.stage ? group.stage.offsetHeight : vh) * 0.75);
-        var away = Math.max(0, Math.min(1, scrolled / range));
-        k = Math.max(heroK, away);          // что сильнее: незакончившаяся сборка или уход вверх
-      } else {
-        // Симметрично: разлетелось -> собралось -> снова разлетелось.
-        // Между 0.42 и 0.72 держим собранным, чтобы текст успели прочитать.
-        var r = group.el.getBoundingClientRect();
-        var p = (vh - r.top) / (r.height + vh);
-        if (p < 0.42)      k = Math.min(1, (0.42 - p) / 0.42);
-        else if (p > 0.72) k = Math.min(1, (p - 0.72) / 0.28);
-        else               k = 0;
-      }
+      // Симметрично: разлетелось -> собралось -> снова разлетелось.
+      // Между 0.42 и 0.72 держим собранным, чтобы текст успели прочитать.
+      var r = group.el.getBoundingClientRect();
+      var p = (vh - r.top) / (r.height + vh), k;
+      if (p < 0.42)      k = Math.min(1, (0.42 - p) / 0.42);
+      else if (p > 0.72) k = Math.min(1, (p - 0.72) / 0.28);
+      else               k = 0;
       group.chars.forEach(function(c, i){
         var d = group.d[i] || 0;
         if (k < 0.001) { c.style.transform = ''; return; }
@@ -925,13 +829,6 @@ h3{font-size:clamp(22px,2vw,26px);font-weight:400;line-height:1.05;letter-spacin
     });
   }
 
-  function runEntrance(ts){
-    if (!entranceStart) entranceStart = ts;
-    var e = Math.min(1, (ts - entranceStart) / 1100);
-    heroK = Math.pow(1 - e, 3);             // easeOutCubic: 1 -> 0
-    paintScrollChars();
-    if (e < 1) requestAnimationFrame(runEntrance);
-  }
 
   if (scrollChars.length && !reduced) {
     var scTicking = false;
@@ -948,7 +845,6 @@ h3{font-size:clamp(22px,2vw,26px);font-weight:400;line-height:1.05;letter-spacin
     }
     measureAll();
     paintScrollChars();
-    if (scrollChars.some(function(g){ return g.hero; })) requestAnimationFrame(runEntrance);
   }
 
   /* ---------- объёмный наклон карточек с картинками ----------
@@ -956,7 +852,7 @@ h3{font-size:clamp(22px,2vw,26px);font-weight:400;line-height:1.05;letter-spacin
      и карточка залипала бы в наклоне после касания. */
   if (!reduced && window.matchMedia('(hover: hover)').matches) {
     var clampDeg = function(v){ return Math.max(-10, Math.min(10, v)); };
-    Array.prototype.forEach.call(document.querySelectorAll('.figure, .scene'), function(card){
+    Array.prototype.forEach.call(document.querySelectorAll('.figure'), function(card){
       card.classList.add('tilt');
       var frame = 0, rx = 0, ry = 0;
       card.addEventListener('pointermove', function(e){
